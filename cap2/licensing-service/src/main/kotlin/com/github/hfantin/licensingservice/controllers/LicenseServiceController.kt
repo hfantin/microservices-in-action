@@ -6,23 +6,23 @@ import org.springframework.web.bind.annotation.*
 
 
 @RestController
-@RequestMapping(value = "/v1/organizations/{organizationId}/licenses")
+@RequestMapping("/v1/organizations/{organizationId}/licenses")
 class LicenseServiceController {
 
-    @RequestMapping(value = "/{licenseId}", method = [RequestMethod.GET])
+    @RequestMapping("/{licenseId}", method = [RequestMethod.GET])
     fun getLicences(@PathVariable("organizationId") organizationId: String,
                     @PathVariable("licenseId")
                     licenseId: String) = License(licenseId, organizationId, "produto", "tipo")
 
 
-    @RequestMapping(value = "{licenseId}", method = [RequestMethod.PUT])
+    @RequestMapping("{licenseId}", method = [RequestMethod.PUT])
     fun updateLicenses(@PathVariable("licenseId") licenseId: String) = "This is the put"
 
 
-    @RequestMapping(value = "{licenseId}", method = [RequestMethod.POST])
+    @RequestMapping("{licenseId}", method = [RequestMethod.POST])
     fun saveLicenses(@PathVariable("licenseId") licenseId: String) = "This is the post"
 
-    @RequestMapping(value = "{licenseId}", method = [RequestMethod.DELETE])
+    @RequestMapping("{licenseId}", method = [RequestMethod.DELETE])
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteLicenses(@PathVariable("licenseId") licenseId: String) = "This is the Delete"
 
