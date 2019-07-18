@@ -33,6 +33,8 @@ Microservice lifecicle steps:
 [Splunk](http://splunk.com)   
 [Fluentd](http://fluentd.org)   
 4. [actuators endpoints](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html)   
-
+5. [spring cloud centralized configuration](https://spring.io/guides/gs/centralized-configuration/)
+6. github:   
+[cap3](https://github.com/carnellj/spmia-chapter3)
 #### books
 - REST in Practice by Ian Robinson, et al (O’Reilly, 2010).
