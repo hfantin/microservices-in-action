@@ -4,4 +4,8 @@
 
 - test endpoints:
 > http://localhost:9000/v1/organizations/e254f8c-c442-4ebe-a82a-e2fc1d1ff78a/licenses
-> http://localhost:9000/v1/organizations/e254f8c-c442-4ebe-a82a-e2fc1d1ff78a/licenses/f3831f8c-c338-4ebe-a82a-e2fc1d1ff78a 
+> http://localhost:9000/v1/organizations/e254f8c-c442-4ebe-a82a-e2fc1d1ff78a/licenses/f3831f8c-c338-4ebe-a82a-e2fc1d1ff78a
+
+
+- Refreshing your properties using Spring Cloud configuration server:
+> localhost:9000/refresh - not working  
