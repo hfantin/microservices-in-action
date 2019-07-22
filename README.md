@@ -39,5 +39,6 @@ Microservice lifecicle steps:
 5. [spring cloud centralized configuration](https://spring.io/guides/gs/centralized-configuration/)
 6. github:   
 [cap3](https://github.com/carnellj/spmia-chapter3)
+[cap4](https://github.com/carnellj/spmia-chapter4)
 #### books
 - REST in Practice by Ian Robinson, et al (O’Reilly, 2010).
