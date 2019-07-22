@@ -3,6 +3,7 @@
 - cap 1 - simple hello world   
 - cap 2 - licensing-service   
 - cap 3 - configuration service
+- cap 4 - service discovery
 
 > test url http://localhost:9000/v1/organizations/{organizationId}/licenses/{licenceId}
 
