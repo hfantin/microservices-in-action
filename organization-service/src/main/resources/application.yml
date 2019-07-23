@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: default
+  cloud:
+    config:
+      enabled: true
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: True
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+server:
+  port: 9001
+
+
