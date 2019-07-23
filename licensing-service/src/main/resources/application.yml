@@ -1,0 +1,23 @@
+# eureka.instance.prefer-ip-address=true
+# eureka.client.register-with-eureka=true
+# eureka.client.fetch-registry=true
+# eureka.client.service-url=http://localhost:8761/eureka/
+# management.endpoints.web.exposure.include=*
+
+server:
+  port: 9000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include=*:
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+

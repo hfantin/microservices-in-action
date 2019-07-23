@@ -1,4 +1,4 @@
-package com.github.hfantin.organizationservice
+package com.github.hfantin.organizationservice.controller
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.cloud.client.discovery.DiscoveryClient
