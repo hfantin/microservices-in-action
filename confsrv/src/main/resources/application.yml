@@ -8,9 +8,9 @@ spring:
       server:
         git:
           uri: https://github.com/hfantin/microservices-in-action
-          # searchPaths: config-files/licensing-service,config-files/test
+          search-paths: config/licensingservice,config/organizationservice
           #search-paths: '*,{application},config/{application}, config/, config/*'
-          search-paths: 'config-files/{application}'
+          # searchPaths: '*,{application},config-files/{application}, config-files/, config-files/*'
         encrypt:
           enabled: true
 
