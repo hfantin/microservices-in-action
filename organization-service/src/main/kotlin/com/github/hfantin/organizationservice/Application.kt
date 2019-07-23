@@ -6,8 +6,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient
 
 @SpringBootApplication
 @EnableDiscoveryClient
-class OrganizationServiceApplication
+class Application
 
 fun main(args: Array<String>) {
-	runApplication<OrganizationServiceApplication>(*args)
+	runApplication<Application>(*args)
 }
