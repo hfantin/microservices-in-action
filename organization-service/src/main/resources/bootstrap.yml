@@ -1,6 +1,9 @@
 spring:
   application:
-    name: organization-service
-
-
-
+    name: organizationservice
+  profiles:
+    active:
+      default
+  cloud:
+    config:
+      enabled: true
