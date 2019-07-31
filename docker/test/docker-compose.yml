@@ -1,11 +1,11 @@
 version: '2'
 services:
   eurekaserver:
-    image: hfantin/confsrv:latest
+    image: com.github.hfantin/eurekasrv:latest
     ports:
       - "8761:8761"
   configserver:
-    image: hfantin/eurekasrv:latest
+    image: com.github.hfantin/confsrv
     ports:
       - "8888:8888"
     environment:
@@ -17,13 +17,13 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "p0stgr@s"
-      POSTGRES_DB:       "eagle_eye_local"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: p0stgr@s
+      POSTGRES_DB:       eagle_eye_local
     volumes:
       - ../.data/postgres:/var/lib/postgresql/data
   licensingservice:
-    image: hfantin/licensing-service:latest
+    image: com.github.hfantin/licensing-service:latest
     ports:
       - "9000:9000"
     environment:
@@ -36,7 +36,7 @@ services:
       DATABASESERVER_PORT: "5432"
       ENCRYPT_KEY:       "IMSYMMETRIC"
   organizationservice:
-    image: hfantin/organization-service:latest
+    image: com.github.hfantin/organization-service:latest
     ports:
       - "9001:9001"
     environment:

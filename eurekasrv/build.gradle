@@ -54,10 +54,10 @@ dependencyManagement {
 
 docker {
 	dependsOn build
-//	name "${project.group}/${jar.archiveBaseName.get()}"
-	name "hfantin/${jar.archiveBaseName.get()}"
+	name "${project.group}/${jar.archiveBaseName.get()}"
+//	name "hfantin/${jar.archiveBaseName.get()}"
 	files bootJar.archiveFile, "run.sh"
 	buildArgs(['JAR_FILE': "${bootJar.archiveFileName.get()}"])
-	pull true
-	noCache true
+//	pull true
+//	noCache true
 }
