@@ -9,5 +9,5 @@ services:
       POSTGRES_PASSWORD: "p0stgr@s"
       POSTGRES_DB:       "eagle_eye_local"
     volumes:
-      - ./data/postgres:/var/lib/postgresql/data
+      - ../.data/postgres:/var/lib/postgresql/data
 #      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
