@@ -10,12 +10,3 @@ eureka:
     wait-time-in-ms-when-sync-empty: 5
   service-url:
     default-zone: http://localhost:8761
-
-
-#eureka.client.register-with-eureka=false
-#eureka.client.fetch-registry=false
-# eureka.client.server.waitTimeInMsWhenSyncEmpty=5
-#logging.level.com.netflix.eureka=OFF
-#logging.level.com.netflix.discovery=OFF
-# to 
-# eureka.server.enable-self-preservation
