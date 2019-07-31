@@ -5,9 +5,55 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "p0stgr@s"
-      POSTGRES_DB:       "eagle_eye_local"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: p0stgr@s
+      POSTGRES_DB:       eagle_eye_local
     volumes:
       - ../.data/postgres:/var/lib/postgresql/data
-#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  eurekaserver:
+    image: com.github.hfantin/eurekasrv:latest
+    ports:
+      - "8761:8761"
+    depends_on:
+      - database
+  configserver:
+    image: com.github.hfantin/confsrv
+    ports:
+      - "8888:8888"
+    environment:
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT: "8761"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    depends_on:
+      - eurekaserver
+
+  licensingservice:
+    image: com.github.hfantin/licensing-service:latest
+    ports:
+      - "9000:9000"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "9000"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_PORT:   "8888"
+      DATABASESERVER_PORT: "5432"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    depends_on:
+      - configserver
+  organizationservice:
+    image: com.github.hfantin/organization-service:latest
+    ports:
+      - "9001:9001"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "9001"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_PORT:   "8888"
+      DATABASESERVER_PORT: "5432"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    depends_on:
+      - configserver
