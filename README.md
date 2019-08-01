@@ -27,6 +27,11 @@ Microservice lifecicle steps:
 3. Service registration/discovery—When a new microservice instance is deployed, how do you make the new service instance discoverable by other application clients?    
 4. Service monitoring—In a microservices environment it’s extremely common for multiple instances of the same service to be running due to high availability needs. From a DevOps perspective, you need to monitor microservice instances and ensure that any faults in your microservice are routed around and that ailing service instances are taken down.
 
+Client libraries in wich a service consumer can iteract with Ribbon:
+- spring discovery client
+- spring discovery client enabled restTemplate
+- netflix feing client
+
 #### Links
 1. alternatives to json:    
 [Apache Thrift](http://thrift.apache.org)      

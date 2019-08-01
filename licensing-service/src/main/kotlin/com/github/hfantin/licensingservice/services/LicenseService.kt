@@ -13,14 +13,29 @@ class LicenseService {
     @Autowired
     private lateinit var licenceRepository: LicenseRepository
 
-    @RequestMapping("/{licenseId}", method = [RequestMethod.GET])
+    //    @RequestMapping("/{licenseId}", method = [RequestMethod.GET])
+    @GetMapping("/{licenseId}")
     fun getLicence(@PathVariable("organizationId") organizationId: String,
-                    @PathVariable("licenseId")
-                    licenseId: String) = licenceRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId)
+                   @PathVariable("licenseId") licenseId: String) = licenceRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId)
 
-    @RequestMapping(method = [RequestMethod.GET])
-    fun getLicencesByOrganizationId(@PathVariable("organizationId") organizationId: String)
-            = licenceRepository.findByOrganizationId(organizationId)
+    /**
+     * this method is only to help testing the ribbon client type
+     *
+     * @param clientType - Discovery - Uses Spring RestTemplate to invoke organization service
+     *                     Rest      - Uses an enhanced Spring RestTemplate to invoke the Ribbon-based service
+     *                     Feing     - Uses Netflix’s Feign client library to invoke a service via Ribbon
+     */
+    @GetMapping("/{licenseId}/{clientType}")
+    fun getLicenseWithClient(
+            @PathVariable("organizationId") organizationId: String,
+            @PathVariable("licenseId") licenseId: String,
+            @PathVariable("clientType") clientType: String
+    ) = "TODO"
+    //licenseService.getLicense(organizationId, licenseId, clientType);
+
+    //    @RequestMapping(method = [RequestMethod.GET])
+    @GetMapping
+    fun getLicencesByOrganizationId(@PathVariable("organizationId") organizationId: String) = licenceRepository.findByOrganizationId(organizationId)
 
 
     @RequestMapping("{licenseId}", method = [RequestMethod.PUT])
