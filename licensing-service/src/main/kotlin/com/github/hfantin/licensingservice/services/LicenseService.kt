@@ -1,52 +1,79 @@
 package com.github.hfantin.licensingservice.services
 
+import com.github.hfantin.licensingservice.clients.OrganizationDiscoveryClient
+import com.github.hfantin.licensingservice.clients.OrganizationFeingClient
+import com.github.hfantin.licensingservice.clients.OrganizationRestTemplateClient
+import com.github.hfantin.licensingservice.model.License
+import com.github.hfantin.licensingservice.model.Organization
 import com.github.hfantin.licensingservice.repository.LicenseRepository
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.*
+import org.springframework.stereotype.Service
+import java.util.*
 
-
-@RestController
-@RequestMapping("/v1/organizations/{organizationId}/licenses")
+@Service
 class LicenseService {
 
+    private val LOG by lazy { LoggerFactory.getLogger(LicenseService::class.java) }
+
     @Autowired
-    private lateinit var licenceRepository: LicenseRepository
+    private lateinit var licenseRepository: LicenseRepository
 
-    //    @RequestMapping("/{licenseId}", method = [RequestMethod.GET])
-    @GetMapping("/{licenseId}")
-    fun getLicence(@PathVariable("organizationId") organizationId: String,
-                   @PathVariable("licenseId") licenseId: String) = licenceRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId)
+    @Autowired
+    private lateinit var organizationFeignClient: OrganizationFeingClient
 
-    /**
-     * this method is only to help testing the ribbon client type
-     *
-     * @param clientType - Discovery - Uses Spring RestTemplate to invoke organization service
-     *                     Rest      - Uses an enhanced Spring RestTemplate to invoke the Ribbon-based service
-     *                     Feing     - Uses Netflix’s Feign client library to invoke a service via Ribbon
-     */
-    @GetMapping("/{licenseId}/{clientType}")
-    fun getLicenseWithClient(
-            @PathVariable("organizationId") organizationId: String,
-            @PathVariable("licenseId") licenseId: String,
-            @PathVariable("clientType") clientType: String
-    ) = "TODO"
-    //licenseService.getLicense(organizationId, licenseId, clientType);
+    @Autowired
+    private lateinit var organizationRestClient: OrganizationRestTemplateClient
 
-    //    @RequestMapping(method = [RequestMethod.GET])
-    @GetMapping
-    fun getLicencesByOrganizationId(@PathVariable("organizationId") organizationId: String) = licenceRepository.findByOrganizationId(organizationId)
+    @Autowired
+    private lateinit var organizationDiscoveryClient: OrganizationDiscoveryClient
+
+    fun getLicencesByOrganizationId(organizationId: String) = licenseRepository.findByOrganizationId(organizationId)
+
+    fun findByOrganizationIdAndLicenseId(organizationId: String, licenseId: String) = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId)
+
+    fun getLicenseWithClient(organizationId: String, licenseId: String, clientType: String): License? {
+        LOG.info("getLicenseWithClient $organizationId $licenseId $clientType")
+        val license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId)
+        LOG.info("license $license")
+        val org = retrieveOrgInfo(organizationId, clientType)
+        LOG.info("retrieved organization: $org")
+        return license?.apply {
+            org?.let {
+                organizationName = it.name
+                contactName = it.contactName
+                contactEmail = it.contactEmail
+                contactPhone = it.contactPhone
+            }
+
+        }
+    }
+
+    fun save(license: License) {
+        license.licenseId = UUID.randomUUID().toString()
+        licenseRepository.save(license)
+    }
+
+    fun update(license: License) = licenseRepository.save(license)
+
+    fun delete(licenseId: String) = licenseRepository.deleteById(licenseId)
 
 
-    @RequestMapping("{licenseId}", method = [RequestMethod.PUT])
-    fun updateLicenses(@PathVariable("licenseId") licenseId: String) = "This is the put"
-
-
-    @RequestMapping("{licenseId}", method = [RequestMethod.POST])
-    fun saveLicenses(@PathVariable("licenseId") licenseId: String) = "This is the post"
-
-    @RequestMapping("{licenseId}", method = [RequestMethod.DELETE])
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteLicenses(@PathVariable("licenseId") licenseId: String) = "This is the Delete"
+    private fun retrieveOrgInfo(organizationId: String, clientType: String): Organization? =
+            when (clientType) {
+                "feign" -> {
+                    LOG.info("I am using the feign client")
+                    organizationFeignClient.getOrganization(organizationId)
+                }
+                "rest" -> {
+                    LOG.info("I am using the rest client")
+                    organizationRestClient.getOrganization(organizationId)
+                }
+                "discovery" -> {
+                    LOG.info("I am using the discovery client")
+                    organizationDiscoveryClient.getOrganization(organizationId)
+                }
+                else -> organizationRestClient.getOrganization(organizationId)
+            }
 
 }
