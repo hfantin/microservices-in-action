@@ -27,10 +27,35 @@ Microservice lifecicle steps:
 3. Service registration/discovery—When a new microservice instance is deployed, how do you make the new service instance discoverable by other application clients?    
 4. Service monitoring—In a microservices environment it’s extremely common for multiple instances of the same service to be running due to high availability needs. From a DevOps perspective, you need to monitor microservice instances and ensure that any faults in your microservice are routed around and that ailing service instances are taken down.
 
-Client libraries in wich a service consumer can iteract with Ribbon:
+Client libraries in wich a service consumer can iteract with Ribbon(Client side loadbalancer):
 - spring discovery client
 - spring discovery client enabled restTemplate
 - netflix feing client
+
+
+Client side resiliency patterns:    
+- client side load balancer   
+ex.: Ribbon(chapter 4) - cahche the physical location
+of said service instances. whenever the consumer needs
+to call a service instance, the load balancer will return
+the location from the pool of service location its maintaining
+If the instance became slow, the load balancer can detect and remove it from the pool
+
+- circuit breakers:   
+this pattern is based on electrical circuit breaker, where it will detect if there is too much
+current flowing through the wire and break the connection to avoid components being fried.
+With the software, the circuit breaker will detect if a remote call takes too long and will kill the call if its necessary.
+In addition, he will monitor future calls, and if it fails, he will failing fast and prevent future calls to the failing remote resource. 
+- fallbacks:   
+with thist pattern, when a remote service fails, rather than generating an exception, the consumer will execute an 
+alternative code path, and try to carry out an action through another means. 
+- bulkheads: 
+this pattern is based on a concept from building ships. The ship is divided into segregated compartments(bulkheads), 
+and if one is punctured, the ship will keep the water confined to that area, preventing the entire ship from sinking.
+The same concept is applied to a service that must interact with multiple remotes resources. Bulkhead patter uses a thread pool
+and if one is responding slowly, the thread pool will stop the processing request.
+
+
 
 #### Links
 1. alternatives to json:    
