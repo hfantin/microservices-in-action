@@ -26,6 +26,9 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-config")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
 //	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+	implementation('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
+	// TODO check if its needed - in the book he is using.
+	//	implementation('com.netflix.hystrix:hystrix-javanica:1.5.9')
 	// dependencies to work with java 9+
 	implementation("javax.xml.bind:jaxb-api:2.3.0") 	// 2.3.0
 	implementation("com.sun.xml.bind:jaxb-impl:2.3.0") //2.3.0
@@ -36,6 +39,7 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
 	// database
 	runtimeOnly("org.postgresql:postgresql")
 	// test

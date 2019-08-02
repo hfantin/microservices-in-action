@@ -7,10 +7,9 @@ import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 
-@Component
+
 /**
- *
- * otes from Microservices in Action Book(page 118:
+ * Notes from Microservices in Action Book(page 118:
  *
  * When you use the standard Spring RestTemplate class, all service calls’ HTTP status
  * codes will be returned via the ResponseEntity class’s getStatusCode()
@@ -23,6 +22,7 @@ import org.springframework.web.client.RestTemplate
  * (https://github.com/Netflix/feign/wiki/Custom-error-handling).
  *
  */
+@Component
 class OrganizationRestTemplateClient {
 
     private val LOG by lazy { LoggerFactory.getLogger(OrganizationRestTemplateClient::class.java) }

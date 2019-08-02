@@ -5,10 +5,9 @@ import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 
-@FeignClient("organizationservice")
+
 /**
- *
- * otes from Microservices in Action Book(page 118:
+ * Notes from Microservices in Action Book(page 118:
  *
  * When you use the standard Spring RestTemplate class, all service calls’ HTTP status
  * codes will be returned via the ResponseEntity class’s getStatusCode()
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable
  * (https://github.com/Netflix/feign/wiki/Custom-error-handling).
  *
  */
+@FeignClient("organizationservice")
 interface OrganizationFeingClient {
 
     @GetMapping("/v1/organizations/{organizationId}", consumes = ["application/json"])

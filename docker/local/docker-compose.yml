@@ -27,22 +27,22 @@ services:
     depends_on:
       - eurekaserver
 
-  licensingservice:
-    image: com.github.hfantin/licensing-service:latest
-    ports:
-      - "9000:9000"
-    environment:
-      PROFILE: "default"
-      SERVER_PORT: "9000"
-      CONFIGSERVER_URI: "http://configserver:8888"
-      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-      EUREKASERVER_PORT:   "8761"
-      CONFIGSERVER_PORT:   "8888"
-      DATABASESERVER_PORT: "5432"
-      ENCRYPT_KEY:       "IMSYMMETRIC"
-    depends_on:
-      - configserver
-  organizationservice1:
+#  licensingservice:
+#    image: com.github.hfantin/licensing-service:latest
+#    ports:
+#      - "9000:9000"
+#    environment:
+#      PROFILE: "default"
+#      SERVER_PORT: "9000"
+#      CONFIGSERVER_URI: "http://configserver:8888"
+#      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+#      EUREKASERVER_PORT:   "8761"
+#      CONFIGSERVER_PORT:   "8888"
+#      DATABASESERVER_PORT: "5432"
+#      ENCRYPT_KEY:       "IMSYMMETRIC"
+#    depends_on:
+#      - configserver
+  organizationservice:
     image: com.github.hfantin/organization-service:latest
     ports:
       - "9002:9001"
@@ -57,18 +57,18 @@ services:
       ENCRYPT_KEY:       "IMSYMMETRIC"
     depends_on:
       - configserver
-  organizationservice2:
-    image: com.github.hfantin/organization-service:latest
-    ports:
-      - "9003:9001"
-    environment:
-      PROFILE: "default"
-      SERVER_PORT: "9003"
-      CONFIGSERVER_URI: "http://configserver:8888"
-      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-      EUREKASERVER_PORT:   "8761"
-      CONFIGSERVER_PORT:   "8888"
-      DATABASESERVER_PORT: "5432"
-      ENCRYPT_KEY:       "IMSYMMETRIC"
-    depends_on:
-      - configserver
+#  organizationservice2:
+#    image: com.github.hfantin/organization-service:latest
+#    ports:
+#      - "9003:9001"
+#    environment:
+#      PROFILE: "default"
+#      SERVER_PORT: "9003"
+#      CONFIGSERVER_URI: "http://configserver:8888"
+#      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+#      EUREKASERVER_PORT:   "8761"
+#      CONFIGSERVER_PORT:   "8888"
+#      DATABASESERVER_PORT: "5432"
+#      ENCRYPT_KEY:       "IMSYMMETRIC"
+#    depends_on:
+#      - configserver

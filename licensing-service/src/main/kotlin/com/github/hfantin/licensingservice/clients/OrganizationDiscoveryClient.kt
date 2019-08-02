@@ -8,7 +8,7 @@ import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 
-@Component
+
 /**
  * this class uses the discovery client to locate te organization service
  *
@@ -36,6 +36,7 @@ import org.springframework.web.client.RestTemplate
  * the RestTemplate class. Directly instantiating the RestTemplate class allows you to avoid this behavior.
  * In summary, there are better mechanisms for calling a Ribbon-backed service
  */
+@Component
 class OrganizationDiscoveryClient {
 
     private val LOG by lazy { LoggerFactory.getLogger(OrganizationDiscoveryClient::class.java) }
