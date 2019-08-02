@@ -8,6 +8,21 @@ import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 
 @Component
+/**
+ *
+ * otes from Microservices in Action Book(page 118:
+ *
+ * When you use the standard Spring RestTemplate class, all service calls’ HTTP status
+ * codes will be returned via the ResponseEntity class’s getStatusCode()
+ * method. With the Feign Client, any HTTP 4xx – 5xx status codes returned by the service
+ * being called will be mapped to a FeignException. The FeignException will
+ * contain a JSON body that can be parsed for the specific error message.
+ * Feign does provide you the ability to write an error decoder class that will map the
+ * error back to a custom Exception class. Writing this decoder is outside the scope
+ * of this book, but you can find examples of this in the Feign GitHub repository at
+ * (https://github.com/Netflix/feign/wiki/Custom-error-handling).
+ *
+ */
 class OrganizationRestTemplateClient {
 
     private val LOG by lazy { LoggerFactory.getLogger(OrganizationRestTemplateClient::class.java) }
@@ -15,11 +30,12 @@ class OrganizationRestTemplateClient {
     @Autowired
     private lateinit var restTemplate: RestTemplate
 
-
     fun getOrganization(organizationId: String): Organization? {
+        LOG.info("getOrganization - id=$organizationId")
         val restExchange = restTemplate.exchange(
                 "http://organizationservice/v1/organizations/{organizationId}",
                 HttpMethod.GET, null, Organization::class.java, organizationId)
+        LOG.info("getOrganization - restExchange.getBody()=${restExchange.getBody()}")
         return restExchange.getBody()
     }
 

@@ -36,9 +36,9 @@ class LicenseService {
         LOG.info("getLicenseWithClient $organizationId $licenseId $clientType")
         val license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId)
         LOG.info("license $license")
-        val org = retrieveOrgInfo(organizationId, clientType)
-        LOG.info("retrieved organization: $org")
         return license?.apply {
+            val org = retrieveOrgInfo(organizationId, clientType)
+            LOG.info("retrieved organization: $org")
             org?.let {
                 organizationName = it.name
                 contactName = it.contactName
