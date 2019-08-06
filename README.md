@@ -4,7 +4,8 @@
 - cap 2 - licensing-service   
 - cap 3 - configuration service
 - cap 4 - service discovery
-- cap 4 - resiliency patterns - hystrix
+- cap 5 - resiliency patterns - hystrix
+- cap 6 - service routing  and zuul
 
 > test url http://localhost:9000/v1/organizations/{organizationId}/licenses/{licenceId}
 
@@ -90,5 +91,6 @@ Hystrix annotations:
 [cap3](https://github.com/carnellj/spmia-chapter3)   
 [cap4](https://github.com/carnellj/spmia-chapter4)   
 [cap5](https://github.com/carnellj/spmia-chapter5)   
+[cap6](https://github.com/carnellj/spmia-chapter6)   
 #### books
 - REST in Practice by Ian Robinson, et al (O’Reilly, 2010).
