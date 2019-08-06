@@ -4,6 +4,7 @@
 - cap 2 - licensing-service   
 - cap 3 - configuration service
 - cap 4 - service discovery
+- cap 4 - resiliency patterns - hystrix
 
 > test url http://localhost:9000/v1/organizations/{organizationId}/licenses/{licenceId}
 
@@ -53,9 +54,27 @@ alternative code path, and try to carry out an action through another means.
 this pattern is based on a concept from building ships. The ship is divided into segregated compartments(bulkheads), 
 and if one is punctured, the ship will keep the water confined to that area, preventing the entire ship from sinking.
 The same concept is applied to a service that must interact with multiple remotes resources. Bulkhead patter uses a thread pool
-and if one is responding slowly, the thread pool will stop the processing request.
+and if one is responding slowly, the thread pool will stop the processing request.   
 
+Hystrix environment configuration levels:   
+1. Default for the entire application   
+2. Default for the class   
+3. Thread-pool level defined within the class   
 
+Hystrix annotations: 
+
+|  property name | default value  | description | 
+|---|---|---|
+| fallbackMethod | none  | Identifies the method within the class that will be called if the remote call times out. The callback method must be in the same class as the @HystrixCommand annotation and must have the same method signature as the calling class. If no value, an exception will be thrown by Hystrix.  |
+| threadPoolKey | none  | Gives the @HystrixCommand a unique name and creates a thread pool that is independent of the default thread pool. If no value is defined, the default Hystrix thread pool will be used.   |
+| threadPoolProperties | none  | Core Hystrix annotation attribute that’s used to configure the behavior of a thread pool  |
+| coreSize | 20 |  Sets the size of the thread pool  |
+| maxQueueSize | -1 | Maximum queue size that will set in front of the thread pool. If set to -1, no queue is used and instead Hystrix will block until a thread becomes available for processing. |
+| circuitBreaker.request-VolumeThreshold| 20 | Sets the minimum number of requests that must be processed within the rolling window before Hystrix will even begin examining whether the circuit breaker will be tripped. This value can only be set with the commandPoolProperties attribute. |
+| circuitBreaker.error-ThresholdPercentage | 50  |  The percentage of failures that must occur within the rolling window before the circuit breaker is tripped. Note: This value can only be set with the commandPoolProperties attribute.  |
+| circuitBreaker.sleep-WindowInMilliseconds | 5000  | The number of milliseconds Hystrix will wait before trying a service call after the circuit breaker has been tripped. Note: This value can only be set with the commandPoolProperties attribute   |
+| metricsRollingStats.timeInMilliseconds | 10000 | The number of milliseconds Hystrix will collect and monitor statistics about service calls within a window   |
+| metricsRollingStats.numBuckets | 10  |  The number of metrics buckets Hystrix will maintain within its monitoring window. The more buckets within the monitoring window, the lower the level of time Hystrix will monitor for faults within the window.  |
 
 #### Links
 1. alternatives to json:    
@@ -68,7 +87,8 @@ and if one is responding slowly, the thread pool will stop the processing reques
 4. [actuators endpoints](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html)   
 5. [spring cloud centralized configuration](https://spring.io/guides/gs/centralized-configuration/)
 6. github:   
-[cap3](https://github.com/carnellj/spmia-chapter3)
-[cap4](https://github.com/carnellj/spmia-chapter4)
+[cap3](https://github.com/carnellj/spmia-chapter3)   
+[cap4](https://github.com/carnellj/spmia-chapter4)   
+[cap5](https://github.com/carnellj/spmia-chapter5)   
 #### books
 - REST in Practice by Ian Robinson, et al (O’Reilly, 2010).

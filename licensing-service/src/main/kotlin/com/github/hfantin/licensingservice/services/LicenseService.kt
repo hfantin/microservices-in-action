@@ -6,6 +6,8 @@ import com.github.hfantin.licensingservice.clients.OrganizationRestTemplateClien
 import com.github.hfantin.licensingservice.model.License
 import com.github.hfantin.licensingservice.model.Organization
 import com.github.hfantin.licensingservice.repository.LicenseRepository
+import com.github.hfantin.licensingservice.util.UserContextHolder
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty
 import kotlinx.coroutines.delay
@@ -14,7 +16,22 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.*
 
+/**
+ *
+ * In a production system, the Hystrix data that’s most likely to
+ * need to be tweaked (timeout parameters, thread pool counts) would be externalized
+ * to Spring Cloud Config. This way if you need to change the parameter values,
+ * you could change the values and then restart the service instances
+ * without having to recompile and redeploy the application.
+ *
+ */
 @Service
+// to set configuration for hystrix in class level
+//@DefaultProperties(
+//        commandProperties = [
+//            HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "10000")
+//        ]
+//)
 class LicenseService {
 
     private val LOG by lazy { LoggerFactory.getLogger(LicenseService::class.java) }
@@ -39,14 +56,21 @@ class LicenseService {
             fallbackMethod = "buildFallbackLicenseList",
             threadPoolKey = "licencesByOrganizationIdThreadPool",
             threadPoolProperties = [
-                HystrixProperty(name="coreSize", value="30"),
-                HystrixProperty(name="maxQueueSize", value="10")
+                HystrixProperty(name = "coreSize", value = "30"),
+                HystrixProperty(name = "maxQueueSize", value = "10")
             ],
             commandProperties = [
                 HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "500")
+                // example from boot page 140
+//                HystrixProperty(name="circuitBreaker.requestVolumeThreshold", value="10")      // amoount of consecutive calls that must occur within 10 seconde window view before
+//                HystrixProperty(name="circuitBreaker.errorThresholdPercentage", value="75")    // percentage of calls that must fail after requestVolumeThreshold value has been passed before the circuit it triped
+//                HystrixProperty(name="circuitBreaker.sleepWindowInMilliseconds", value="7000") // the amount of time that hystrix will sleep once the circuit tripped before allow another call
+//                HystrixProperty(name="metrics.rollingStats.timeInMilliseconds", value="15000") // controls the size of the window that will be used by hystrix to monitor for problems with a service call
+//                HystrixProperty(name="metrics.rollingStats.numBuckets", value="5")             // controls the number of times statistics are collected in the you've defined
             ]
     )
     fun getLicencesByOrganizationId(organizationId: String): MutableList<License> {
+        LOG.info("LicenseService.getLicensesByOrg  Correlation id: {}", UserContextHolder.getContext().correlationId)
         randomlyRunLong()
         return licenseRepository.findByOrganizationId(organizationId)
     }
