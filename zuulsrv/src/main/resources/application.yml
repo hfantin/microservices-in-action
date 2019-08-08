@@ -17,7 +17,20 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+# Mapping routes manually using service discovery
 zuul:
-  prefix:  /api
+  ignored-services: '*'
+  prefix: /api
   routes:
-  organizationservice: /organization/**
+    organizationservice: /organization/**
+    licensingservice: /licensing/**
+# if you want to map static urls to non-JVM services(check sidecar), use this:
+#    licensestatic:
+#      path: /licensestatic/**
+#      url: http://licenseservice-static:8081
+#      url: http://licenseservice-static:8081
