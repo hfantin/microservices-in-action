@@ -38,14 +38,14 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:8888/licensingservice/default",
+					"raw": "localhost:8888/licensingservice/dev",
 					"host": [
 						"localhost"
 					],
 					"port": "8888",
 					"path": [
 						"licensingservice",
-						"default"
+						"dev"
 					]
 				}
 			},
@@ -74,7 +74,32 @@
 			"response": []
 		},
 		{
-			"name": "organization service - discovery services",
+			"name": "organization service - discovery organization service",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9001/v1/services/organizationservice",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"v1",
+						"services",
+						"organizationservice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "organization service - discovery licensing service",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -127,7 +152,28 @@
 			"name": "licensing service - list licenses by organizationId",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "tmx-correlation-id",
+						"value": "cid=123",
+						"type": "text"
+					},
+					{
+						"key": "tmx-user-id",
+						"value": "uid=123",
+						"type": "text"
+					},
+					{
+						"key": "tmx-auth-token",
+						"value": "atk=123",
+						"type": "text"
+					},
+					{
+						"key": "tmx-org-id",
+						"value": "oid=123",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
@@ -177,7 +223,7 @@
 			"response": []
 		},
 		{
-			"name": "licensing service - list licenses with ribbon client type",
+			"name": "licensing service - list licenses -  ribbon type rest",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -186,7 +232,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:9000/v1/organizations/e254f8c-c442-4ebe-a82a-e2fc1d1ff78a/licenses/f3831f8c-c338-4ebe-a82a-e2fc1d1ff78a",
+					"raw": "http://localhost:9000/v1/organizations/e254f8c-c442-4ebe-a82a-e2fc1d1ff78a/licenses/f3831f8c-c338-4ebe-a82a-e2fc1d1ff78a/rest",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -197,7 +243,36 @@
 						"organizations",
 						"e254f8c-c442-4ebe-a82a-e2fc1d1ff78a",
 						"licenses",
-						"f3831f8c-c338-4ebe-a82a-e2fc1d1ff78a"
+						"f3831f8c-c338-4ebe-a82a-e2fc1d1ff78a",
+						"rest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "licensing service - list licenses -  ribbon type feign",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9000/v1/organizations/e254f8c-c442-4ebe-a82a-e2fc1d1ff78a/licenses/f3831f8c-c338-4ebe-a82a-e2fc1d1ff78a/feign",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"organizations",
+						"e254f8c-c442-4ebe-a82a-e2fc1d1ff78a",
+						"licenses",
+						"f3831f8c-c338-4ebe-a82a-e2fc1d1ff78a",
+						"feign"
 					]
 				}
 			},
@@ -279,6 +354,57 @@
 						"e254f8c-c442-4ebe-a82a-e2fc1d1ff78a",
 						"licenses",
 						"f3831f8c-c338-4ebe-a82a-e2fc1d1ff78a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "zuul routes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:5555/actuator/routes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5555",
+					"path": [
+						"actuator",
+						"routes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "zuul organizations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:5555/api/organization/v1/organizations/e254f8c-c442-4ebe-a82a-e2fc1d1ff78a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5555",
+					"path": [
+						"api",
+						"organization",
+						"v1",
+						"organizations",
+						"e254f8c-c442-4ebe-a82a-e2fc1d1ff78a"
 					]
 				}
 			},
