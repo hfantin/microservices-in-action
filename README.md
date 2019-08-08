@@ -77,6 +77,13 @@ Hystrix annotations:
 | metricsRollingStats.timeInMilliseconds | 10000 | The number of milliseconds Hystrix will collect and monitor statistics about service calls within a window   |
 | metricsRollingStats.numBuckets | 10  |  The number of metrics buckets Hystrix will maintain within its monitoring window. The more buckets within the monitoring window, the lower the level of time Hystrix will monitor for faults within the window.  |
 
+cross cutting concerns included in a **Service Gateway**:
+- Static routing   
+- dynamic routing   
+- authentication and authorization   
+- metric collection and logging   
+
+
 #### Links
 1. alternatives to json:    
 [Apache Thrift](http://thrift.apache.org)      
