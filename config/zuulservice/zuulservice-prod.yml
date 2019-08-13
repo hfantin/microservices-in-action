@@ -1,0 +1,15 @@
+zuul:
+  ignored-services: '*'
+  prefix: /api
+  routes:
+    organizationservice: /organization/**
+    licensingservice: /licensing/**
+
+# this is to set the default timeout of hystrix to 2.5 seconds
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2500
