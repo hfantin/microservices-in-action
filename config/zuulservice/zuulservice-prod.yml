@@ -13,3 +13,13 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 2500
+# specific for licensing service
+    licensingservice:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 7000
+# change ribbon default timeout(for configurations that take more than 5 seconds, you need to set both)
+licensingservice:
+  ribbon:
+    ReadTimeout: 7000
