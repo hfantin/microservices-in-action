@@ -101,5 +101,6 @@ cross cutting concerns included in a **Service Gateway**:
 [cap6](https://github.com/carnellj/spmia-chapter6)   
 [config server](https://github.com/carnellj/config-repo)     
 
+
 #### books
 - REST in Practice by Ian Robinson, et al (O’Reilly, 2010).
