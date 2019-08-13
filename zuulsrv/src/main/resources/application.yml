@@ -23,12 +23,12 @@ management:
       exposure:
         include: "*"
 # Mapping routes manually using service discovery
-zuul:
-  ignored-services: '*'
-  prefix: /api
-  routes:
-    organizationservice: /organization/**
-    licensingservice: /licensing/**
+#zuul:
+#  ignored-services: '*'
+#  prefix: /api
+#  routes:
+#    organizationservice: /organization/**
+#    licensingservice: /licensing/**
 # if you want to map static urls to non-JVM services(check sidecar), use this:
 #    licensestatic:
 #      path: /licensestatic/**
