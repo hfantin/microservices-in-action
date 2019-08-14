@@ -3,7 +3,7 @@ spring:
     name: organizationservice
   profiles:
     active:
-      default
+      dev
   cloud:
     config:
       enabled: true
