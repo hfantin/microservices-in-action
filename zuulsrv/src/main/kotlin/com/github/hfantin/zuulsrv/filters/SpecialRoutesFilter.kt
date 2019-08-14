@@ -63,8 +63,7 @@ class SpecialRoutesFilter : ZuulFilter() {
     override fun shouldFilter() = SHOULD_FILTER
 
     private fun getAbRoutingInfo(serviceName: String): AbTestingRoute? {
-        var restExchange: ResponseEntity<AbTestingRoute>? = null
-        try {
+        var restExchange: ResponseEntity<AbTestingRoute>? = try {
             restExchange = restTemplate.exchange("http://specialroutesservice/v1/route/abtesting/{serviceName}",
                     HttpMethod.GET, null, AbTestingRoute::class.java, serviceName)
         } catch (ex: HttpClientErrorException) {

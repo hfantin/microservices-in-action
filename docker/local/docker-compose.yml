@@ -57,8 +57,8 @@ services:
       ENCRYPT_KEY:       "IMSYMMETRIC"
     depends_on:
       - configserver
-  organizationservice2:
-    image: com.github.hfantin/organization-service:latest
+  organizationservicenew:
+    image: com.github.hfantin/organization-new:latest
     ports:
       - "9002:9001"
     environment:
@@ -72,19 +72,34 @@ services:
       ENCRYPT_KEY:       "IMSYMMETRIC"
     depends_on:
       - configserver
-#  zuulserver:
-#    image: com.github.hfantin/zuulsrv
-#    ports:
-#      - "5555:5555"
-#    environment:
-#      PROFILE: "default"
-#      SERVER_PORT: "5555"
-#      CONFIGSERVER_URI: "http://configserver:8888"
-#      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-#      EUREKASERVER_PORT:        "8761"
-#      DATABASESERVER_PORT:      "5432"
-#      CONFIGSERVER_PORT:        "8888"
-#      ORGSERVERNEW_PORT:        "8087"
-#      ENCRYPT_KEY:       "IMSYMMETRIC"
-#    depends_on:
-#      - configserver
+  specialrouteservice:
+    image: com.github.hfantin/specialroute-service:latest
+    ports:
+      - "8910:8910"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8910"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_PORT:   "8888"
+      DATABASESERVER_PORT: "5432"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    depends_on:
+      - configserver
+  zuulserver:
+    image: com.github.hfantin/zuulsrv
+    ports:
+      - "5555:5555"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "5555"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:        "8761"
+      DATABASESERVER_PORT:      "5432"
+      CONFIGSERVER_PORT:        "8888"
+      ORGSERVERNEW_PORT:        "8087"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    depends_on:
+      - configserver
