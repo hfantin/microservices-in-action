@@ -1,11 +1,12 @@
 # exercises of the book "Microservices in Action"
 
-- cap 1 - simple hello world   
-- cap 2 - licensing-service   
-- cap 3 - configuration service
-- cap 4 - service discovery
-- cap 5 - resiliency patterns - hystrix
-- cap 6 - service routing  and zuul
+- chapter 1 - simple hello world   
+- chapter 2 - licensing-service   
+- chapter 3 - configuration service
+- chapter 4 - service discovery
+- chapter 5 - resiliency patterns - hystrix
+- chapter 6 - service routing  and zuul
+- chapter 7 - security
 
 > test url http://localhost:9000/v1/organizations/{organizationId}/licenses/{licenceId}
 
@@ -84,6 +85,11 @@ cross cutting concerns included in a **Service Gateway**:
 - metric collection and logging   
 
 
+security:   
+- ....
+
+
+
 #### Links
 1. alternatives to json:    
 [Apache Thrift](http://thrift.apache.org)      
@@ -99,6 +105,7 @@ cross cutting concerns included in a **Service Gateway**:
 [cap4](https://github.com/carnellj/spmia-chapter4)   
 [cap5](https://github.com/carnellj/spmia-chapter5)   
 [cap6](https://github.com/carnellj/spmia-chapter6)   
+[cap7](https://github.com/carnellj/spmia-chapter7)   
 [config server](https://github.com/carnellj/config-repo)     
 
 
