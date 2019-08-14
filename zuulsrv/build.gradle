@@ -8,7 +8,7 @@ plugins {
 
 group = "com.github.hfantin"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
 	mavenCentral()
@@ -34,14 +34,14 @@ dependencies {
 compileKotlin {
 	kotlinOptions {
 		freeCompilerArgs = ['-Xjsr305=strict']
-		jvmTarget = '1.8'
+		jvmTarget = JavaVersion.VERSION_11
 	}
 }
 
 compileTestKotlin {
 	kotlinOptions {
 		freeCompilerArgs = ['-Xjsr305=strict']
-		jvmTarget = '1.8'
+		jvmTarget = JavaVersion.VERSION_11
 	}
 }
 
@@ -49,6 +49,14 @@ dependencyManagement {
 	imports {
 		mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
 	}
+}
+
+//processResources {
+//	expand(project.properties)
+//}
+
+springBoot {
+	buildInfo()
 }
 
 docker {

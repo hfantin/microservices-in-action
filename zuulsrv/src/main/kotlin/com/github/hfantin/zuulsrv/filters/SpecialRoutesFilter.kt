@@ -2,6 +2,7 @@ package com.github.hfantin.zuulsrv.filters
 
 
 import com.github.hfantin.zuulsrv.model.AbTestingRoute
+import com.github.hfantin.zuulsrv.utils.UserContextFilter
 import com.netflix.zuul.ZuulFilter
 import com.netflix.zuul.context.RequestContext
 import org.apache.http.Header
@@ -18,8 +19,10 @@ import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.impl.client.HttpClients
 import org.apache.http.message.BasicHeader
 import org.apache.http.message.BasicHttpRequest
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.cloud.netflix.zuul.filters.ProxyRequestHelper
+import org.springframework.cloud.netflix.zuul.filters.ZuulProperties
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -35,7 +38,13 @@ import java.io.InputStream
 import java.net.URL
 import java.util.ArrayList
 import java.util.Random
+import javax.servlet.ServletInputStream
 
+/**
+ * this is a dynamic route filter, normaly used to do A/B testing.
+ * this class simulates rolling out a new version of the organization service where you want 50%
+ * of the users go to the old service and 50% of the users to go to the new service.
+ */
 @Component
 class SpecialRoutesFilter : ZuulFilter() {
 
@@ -43,9 +52,9 @@ class SpecialRoutesFilter : ZuulFilter() {
     private lateinit var filterUtils: FilterUtils
 
     @Autowired
-    private lateinit  var restTemplate: RestTemplate
+    private lateinit var restTemplate: RestTemplate
 
-    private val helper = ProxyRequestHelper()
+    private val helper = ProxyRequestHelper(ZuulProperties())
 
     override fun filterType() = FilterUtils.ROUTE_FILTER_TYPE
 
@@ -56,8 +65,7 @@ class SpecialRoutesFilter : ZuulFilter() {
     private fun getAbRoutingInfo(serviceName: String): AbTestingRoute? {
         var restExchange: ResponseEntity<AbTestingRoute>? = null
         try {
-            restExchange = restTemplate!!.exchange(
-                    "http://specialroutesservice/v1/route/abtesting/{serviceName}",
+            restExchange = restTemplate.exchange("http://specialroutesservice/v1/route/abtesting/{serviceName}",
                     HttpMethod.GET, null, AbTestingRoute::class.java, serviceName)
         } catch (ex: HttpClientErrorException) {
             if (ex.statusCode == HttpStatus.NOT_FOUND) return null
@@ -69,26 +77,19 @@ class SpecialRoutesFilter : ZuulFilter() {
 
     private fun buildRouteString(oldEndpoint: String, newEndpoint: String, serviceName: String): String {
         val index = oldEndpoint.indexOf(serviceName)
-
         val strippedRoute = oldEndpoint.substring(index + serviceName.length)
-        println("Target route: " + String.format("%s/%s", newEndpoint, strippedRoute))
-        return String.format("%s/%s", newEndpoint, strippedRoute)
+        logger.info("Target route: $newEndpoint/$strippedRoute")
+        return "$newEndpoint/$strippedRoute"
     }
 
-    private fun getVerb(request: HttpServletRequest): String {
-        val sMethod = request.method
-        return sMethod.toUpperCase()
-    }
+    private fun getVerb(request: HttpServletRequest) = request.method.toUpperCase()
 
-    private fun getHttpHost(host: URL): HttpHost {
-        return HttpHost(host.host, host.port,
-                host.protocol)
-    }
+    private fun getHttpHost(host: URL) = HttpHost(host.host, host.port, host.protocol)
 
     private fun convertHeaders(headers: MultiValueMap<String, String>): Array<Header> {
         val list = ArrayList<Header>()
-        for (name in headers.keys) {
-            for (value in headers[name]!!) {
+        headers.keys.forEach { name ->
+            headers[name]?.forEach { value ->
                 list.add(BasicHeader(name, value))
             }
         }
@@ -96,15 +97,11 @@ class SpecialRoutesFilter : ZuulFilter() {
     }
 
     @Throws(IOException::class)
-    private fun forwardRequest(httpclient: HttpClient, httpHost: HttpHost,
-                               httpRequest: HttpRequest): HttpResponse {
-        return httpclient.execute(httpHost, httpRequest)
-    }
-
+    private fun forwardRequest(httpclient: HttpClient, httpHost: HttpHost, httpRequest: HttpRequest) = httpclient.execute(httpHost, httpRequest)
 
     private fun revertHeaders(headers: Array<Header>): MultiValueMap<String, String> {
         val map = LinkedMultiValueMap<String, String>()
-        for (header in headers) {
+        headers.forEach { header ->
             val name = header.name
             if (!map.containsKey(name)) {
                 map[name] = ArrayList()
@@ -114,40 +111,29 @@ class SpecialRoutesFilter : ZuulFilter() {
         return map
     }
 
-    private fun getRequestBody(request: HttpServletRequest): InputStream? {
-        var requestEntity: InputStream? = null
-        try {
-            requestEntity = request.inputStream
-        } catch (ex: IOException) {
-            // no requestBody is ok.
-        }
-
-        return requestEntity
+    private fun getRequestBody(request: HttpServletRequest): InputStream? = try {
+        request.inputStream
+    } catch (ex: IOException) {
+        // no requestBody is ok.
+        null
     }
 
     @Throws(IOException::class)
     private fun setResponse(response: HttpResponse) {
-        this.helper.setResponse(response.statusLine.statusCode,
-                if (response.entity == null) null else response.entity.content,
-                revertHeaders(response.allHeaders))
+        this.helper.setResponse(response.statusLine.statusCode, response.entity?.content, revertHeaders(response.allHeaders))
     }
 
     @Throws(Exception::class)
     private fun forward(httpclient: HttpClient?, verb: String, uri: String,
                         request: HttpServletRequest, headers: MultiValueMap<String, String>,
                         params: MultiValueMap<String, String>, requestEntity: InputStream?): HttpResponse {
-        val info = this.helper.debug(verb, uri, headers, params,
-                requestEntity)
+        val info = this.helper.debug(verb, uri, headers, params, requestEntity)
         val host = URL(uri)
         val httpHost = getHttpHost(host)
-
         val httpRequest: HttpRequest
         val contentLength = request.contentLength
         val entity = InputStreamEntity(requestEntity!!, contentLength.toLong(),
-                if (request.contentType != null)
-                    ContentType.create(request.contentType)
-                else
-                    null)
+                request.contentType?.let { ContentType.create(request.contentType) })
         when (verb.toUpperCase()) {
             "POST" -> {
                 val httpPost = HttpPost(uri)
@@ -176,12 +162,8 @@ class SpecialRoutesFilter : ZuulFilter() {
 
 
     fun useSpecialRoute(testRoute: AbTestingRoute): Boolean {
-        val random = Random()
-
         if (testRoute.active == "N") return false
-
-        val value = random.nextInt(10 - 1 + 1) + 1
-
+        val value = Random().nextInt(10) + 1
         return testRoute.weight!! < value
 
     }
@@ -189,15 +171,14 @@ class SpecialRoutesFilter : ZuulFilter() {
     override fun run(): Any? {
         val ctx = RequestContext.getCurrentContext()
 
-        val abTestRoute = getAbRoutingInfo(filterUtils!!.getServiceId())
-
-        if (abTestRoute != null && useSpecialRoute(abTestRoute)) {
-            val route = buildRouteString(ctx.request.requestURI,
-                    abTestRoute.endpoint,
-                    ctx["serviceId"].toString())
-            forwardToSpecialRoute(route)
+        // simulates A/B test
+        val abTestRoute = getAbRoutingInfo(filterUtils.getServiceId())
+        abTestRoute?.let {
+            if (useSpecialRoute(abTestRoute)) {
+                val route = buildRouteString(ctx.request.requestURI, it.endpoint, ctx["serviceId"].toString())
+                forwardToSpecialRoute(route)
+            }
         }
-
         return null
     }
 
@@ -205,39 +186,42 @@ class SpecialRoutesFilter : ZuulFilter() {
         val context = RequestContext.getCurrentContext()
         val request = context.request
 
-        val headers = this.helper
-                .buildZuulRequestHeaders(request)
-        val params = this.helper
-                .buildZuulRequestQueryParams(request)
+        val headers = this.helper.buildZuulRequestHeaders(request)
+        val params = this.helper.buildZuulRequestQueryParams(request)
         val verb = getVerb(request)
         val requestEntity = getRequestBody(request)
         if (request.contentLength < 0) {
             context.setChunkedRequestBody()
         }
-
         this.helper.addIgnoredHeaders()
-        var httpClient: CloseableHttpClient? = null
-        var response: HttpResponse? = null
-
-        try {
-            httpClient = HttpClients.createDefault()
-            response = forward(httpClient, verb, route, request, headers,
-                    params, requestEntity)
-            setResponse(response)
+//        var httpClient: CloseableHttpClient? = null
+//        var response: HttpResponse? = null
+        try{
+            HttpClients.createDefault().use { httpClient ->
+                val response: HttpResponse = forward(httpClient, verb, route, request, headers, params, requestEntity)
+                setResponse(response)
+            }
         } catch (ex: Exception) {
             ex.printStackTrace()
-
-        } finally {
-            try {
-                httpClient!!.close()
-            } catch (ex: IOException) {
-            }
-
         }
+//        try {
+//            httpClient = HttpClients.createDefault()
+//            response = forward(httpClient, verb, route, request, headers, params, requestEntity)
+//            setResponse(response)
+//        } catch (ex: Exception) {
+//            ex.printStackTrace()
+//        } finally {
+//            try {
+//                httpClient?.close()
+//            } catch (ex: IOException) {
+//            }
+//
+//        }
     }
 
     companion object {
         private val FILTER_ORDER = 1
         private val SHOULD_FILTER = true
+        private val logger = LoggerFactory.getLogger(SpecialRoutesFilter::class.java)
     }
 }

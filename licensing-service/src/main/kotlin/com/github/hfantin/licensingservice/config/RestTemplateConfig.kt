@@ -9,11 +9,11 @@ import org.springframework.web.client.RestTemplate
 @Configuration
 class RestTemplateConfig {
 
-    @Bean
-    @LoadBalanced
     /**
      * this is the restTemplate used by OrganizationRestTemplateClient and must use @LoadBalance annotation
      * to tells springcloud to create a ribbon backed RestTemplate class
      */
+    @Bean
+    @LoadBalanced
     fun restTemplate() = RestTemplate()
 }

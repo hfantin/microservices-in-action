@@ -22,6 +22,12 @@ management:
     web:
       exposure:
         include: "*"
+# to change actuators base path:
+      base-path: /tosco
+# to show details:
+  endpoint:
+    health:
+      show-details: always
 # Mapping routes manually using service discovery
 #zuul:
 #  ignored-services: '*'
@@ -34,3 +40,4 @@ management:
 #      path: /licensestatic/**
 #      url: http://licenseservice-static:8081
 #      url: http://licenseservice-static:8081
+
