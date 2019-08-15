@@ -100,7 +100,8 @@ security:
 [Fluentd](http://fluentd.org)   
 4. [actuators endpoints](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html)   
 5. [spring cloud centralized configuration](https://spring.io/guides/gs/centralized-configuration/)
-6. github:   
+6. [jpa repository](https://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/html/repositories.html)      
+7. github:   
 [cap3](https://github.com/carnellj/spmia-chapter3)   
 [cap4](https://github.com/carnellj/spmia-chapter4)   
 [cap5](https://github.com/carnellj/spmia-chapter5)   
