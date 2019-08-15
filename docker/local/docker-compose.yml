@@ -10,6 +10,7 @@ services:
       POSTGRES_DB:       eagle_eye_local
     volumes:
       - ../.data/postgres:/var/lib/postgresql/data
+
   eurekaserver:
     image: com.github.hfantin/eurekasrv:latest
     ports:
@@ -27,51 +28,22 @@ services:
     depends_on:
       - eurekaserver
 
-  licensingservice:
-    image: com.github.hfantin/licensing-service:latest
+  authenticationservice:
+    image: com.github.hfantin/authenticationservice:latest
     ports:
-      - "9000:9000"
+      - "8901:8901"
     environment:
       PROFILE: "default"
-      SERVER_PORT: "9000"
+      SERVER_PORT: "8901"
+      DATABASESERVER_PORT:      "5432"
+      CONFIGSERVER_PORT:        "8888"
+      EUREKASERVER_PORT:        "8761"
       CONFIGSERVER_URI: "http://configserver:8888"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-      EUREKASERVER_PORT:   "8761"
-      CONFIGSERVER_PORT:   "8888"
-      DATABASESERVER_PORT: "5432"
       ENCRYPT_KEY:       "IMSYMMETRIC"
     depends_on:
       - configserver
-  organizationservice:
-    image: com.github.hfantin/organization-service:latest
-    ports:
-      - "9001:9001"
-    environment:
-      PROFILE: "default"
-      SERVER_PORT: "9001"
-      CONFIGSERVER_URI: "http://configserver:8888"
-      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-      EUREKASERVER_PORT:   "8761"
-      CONFIGSERVER_PORT:   "8888"
-      DATABASESERVER_PORT: "5432"
-      ENCRYPT_KEY:       "IMSYMMETRIC"
-    depends_on:
-      - configserver
-#  organizationservicenew:
-#    image: com.github.hfantin/organization-new:latest
-#    ports:
-#      - "9002:9002"
-#    environment:
-#      PROFILE: "default"
-#      SERVER_PORT: "9002"
-#      CONFIGSERVER_URI: "http://configserver:8888"
-#      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-#      EUREKASERVER_PORT:   "8761"
-#      CONFIGSERVER_PORT:   "8888"
-#      DATABASESERVER_PORT: "5432"
-#      ENCRYPT_KEY:       "IMSYMMETRIC"
-#    depends_on:
-#      - configserver
+
   specialrouteservice:
     image: com.github.hfantin/specialroute-service:latest
     ports:
@@ -87,8 +59,9 @@ services:
       ENCRYPT_KEY:       "IMSYMMETRIC"
     depends_on:
       - configserver
+
   zuulserver:
-    image: com.github.hfantin/zuulsrv
+    image: com.github.hfantin/zuulsrv:latest
     ports:
       - "5555:5555"
     environment:
@@ -99,7 +72,55 @@ services:
       EUREKASERVER_PORT:        "8761"
       DATABASESERVER_PORT:      "5432"
       CONFIGSERVER_PORT:        "8888"
-      ORGSERVERNEW_PORT:        "8087"
+      ORGSERVERNEW_PORT:        "9002"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    depends_on:
+      - configserver
+
+  licensingservice:
+    image: com.github.hfantin/licensing-service:latest
+    ports:
+      - "9000:9000"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "9000"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_PORT:   "8888"
+      DATABASESERVER_PORT: "5432"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    depends_on:
+      - configserver
+
+  organizationservice:
+    image: com.github.hfantin/organization-service:latest
+    ports:
+      - "9001:9001"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "9001"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_PORT:   "8888"
+      DATABASESERVER_PORT: "5432"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    depends_on:
+      - configserver
+
+  organizationservicenew:
+    image: com.github.hfantin/organization-new:latest
+    ports:
+      - "9002:9002"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "9002"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_PORT:   "8888"
+      DATABASESERVER_PORT: "5432"
       ENCRYPT_KEY:       "IMSYMMETRIC"
     depends_on:
       - configserver

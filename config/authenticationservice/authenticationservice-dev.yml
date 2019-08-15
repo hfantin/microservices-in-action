@@ -1,0 +1,15 @@
+spring:
+    datasource:
+        password: '{cipher}ef7a635e962a0e32499e373a7551b65087aa9719cecff6105e8b0e6dd2f5561e'
+        url: jdbc:postgresql://localhost:5432/eagle_eye_local
+        username: postgres
+    jpa:
+        hibernate:
+            ddl-auto: validate
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+                jdbc:
+                    lob:
+                        non_contextual_creation: true
+        show-sql: true
