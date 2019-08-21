@@ -112,3 +112,17 @@ security:
 
 #### books
 - REST in Practice by Ian Robinson, et al (O’Reilly, 2010).
+
+
+### TODOS: 
+- default appliction test failure - https://spring.io/tools:   
+```
+com.github.hfantin.authenticationservice.ApplicationTests > contextLoads FAILED
+    java.lang.IllegalStateException
+        Caused by: org.springframework.beans.factory.BeanDefinitionStoreException
+            Caused by: java.lang.IllegalStateException
+                Caused by: java.lang.NoClassDefFoundError
+                    Caused by: java.lang.ClassNotFoundException
+
+1 test completed, 1 failed
+```
