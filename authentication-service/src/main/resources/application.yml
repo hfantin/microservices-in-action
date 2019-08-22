@@ -14,5 +14,28 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
 
 server:
-  contextPath:   /auth
+#  contextPath:   /auth
   port: 8901
+
+#security:
+#  oauth2:
+#    client:
+#      client-id: cliente
+#      client-secret: password
+#      scope: read,write
+#      auto-approve-scopes: '.*'
+#security:
+#  oauth2:
+#    resource:
+#      filter-order: 3
+#    client:
+#      authenticationScheme: header
+#security:
+#  oauth2:
+#    client:
+#      access-token-validity-seconds: 1800
+#      authorized-grant-types: password,refresh_token
+#      client-id: coderef
+#      client-secret: $2a$10$p9Pk0fQNAQSesI4vuvKA0OZanDD2
+#      resource-ids: resources
+#      scope: read,write
