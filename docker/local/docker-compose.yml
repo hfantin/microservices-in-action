@@ -28,21 +28,21 @@ services:
     depends_on:
       - eurekaserver
 
-#  authenticationservice:
-#    image: com.github.hfantin/authenticationservice:latest
-#    ports:
-#      - "8901:8901"
-#    environment:
-#      PROFILE: "default"
-#      SERVER_PORT: "8901"
-#      DATABASESERVER_PORT:      "5432"
-#      CONFIGSERVER_PORT:        "8888"
-#      EUREKASERVER_PORT:        "8761"
-#      CONFIGSERVER_URI: "http://configserver:8888"
-#      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-#      ENCRYPT_KEY:       "IMSYMMETRIC"
-#    depends_on:
-#      - configserver
+  authenticationservice:
+    image: com.github.hfantin/authentication-service:latest
+    ports:
+      - "8901:8901"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8901"
+      DATABASESERVER_PORT:      "5432"
+      CONFIGSERVER_PORT:        "8888"
+      EUREKASERVER_PORT:        "8761"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    depends_on:
+      - configserver
 
   specialrouteservice:
     image: com.github.hfantin/specialroute-service:latest
@@ -90,6 +90,7 @@ services:
       CONFIGSERVER_PORT:   "8888"
       DATABASESERVER_PORT: "5432"
       ENCRYPT_KEY:       "IMSYMMETRIC"
+      AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
     depends_on:
       - configserver
 
@@ -106,6 +107,7 @@ services:
       CONFIGSERVER_PORT:   "8888"
       DATABASESERVER_PORT: "5432"
       ENCRYPT_KEY:       "IMSYMMETRIC"
+      AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
     depends_on:
       - configserver
 
@@ -122,5 +124,6 @@ services:
       CONFIGSERVER_PORT:   "8888"
       DATABASESERVER_PORT: "5432"
       ENCRYPT_KEY:       "IMSYMMETRIC"
+      AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
     depends_on:
       - configserver

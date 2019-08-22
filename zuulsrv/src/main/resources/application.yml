@@ -28,8 +28,11 @@ management:
   endpoint:
     health:
       show-details: always
+
+zuul:
+  # this is a blacklist of header that zuul wont propagate - we need the authorization, so, his absence means that zuul will propagate it
+  sensitiveHeaders: "Cookie,Set-Cookie"
 # Mapping routes manually using service discovery
-#zuul:
 #  ignored-services: '*'
 #  prefix: /api
 #  routes:
