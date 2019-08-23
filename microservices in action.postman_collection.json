@@ -54,6 +54,9 @@
 		{
 			"name": "eureka",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -76,6 +79,16 @@
 		{
 			"name": "organization service - discovery organization service",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -101,6 +114,16 @@
 		{
 			"name": "organization service - discovery licensing service",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -126,6 +149,16 @@
 		{
 			"name": "organization service - organization",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -151,6 +184,16 @@
 		{
 			"name": "licensing service - list licenses by organizationId",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [
 					{
@@ -198,6 +241,16 @@
 		{
 			"name": "licensing service - list licenses by organizantion an client Id",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -205,7 +258,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:9000/v1/organizations/e254f8c-c442-4ebe-a82a-e2fc1d1ff78a/licenses/f3831f8c-c338-4ebe-a82a-e2fc1d1ff78a",
+					"raw": "http://localhost:9000/v1/organizations/442adb6e-fa58-47f3-9ca2-ed1fecdfe86c/licenses/38777179-7094-4200-9d61-edb101c6ea84",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -214,9 +267,9 @@
 					"path": [
 						"v1",
 						"organizations",
-						"e254f8c-c442-4ebe-a82a-e2fc1d1ff78a",
+						"442adb6e-fa58-47f3-9ca2-ed1fecdfe86c",
 						"licenses",
-						"f3831f8c-c338-4ebe-a82a-e2fc1d1ff78a"
+						"38777179-7094-4200-9d61-edb101c6ea84"
 					]
 				}
 			},
@@ -225,6 +278,16 @@
 		{
 			"name": "licensing service - list licenses -  ribbon type rest",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -232,7 +295,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:9000/v1/organizations/e254f8c-c442-4ebe-a82a-e2fc1d1ff78a/licenses/f3831f8c-c338-4ebe-a82a-e2fc1d1ff78a/rest",
+					"raw": "http://localhost:9000/v1/organizations/442adb6e-fa58-47f3-9ca2-ed1fecdfe86c/licenses/38777179-7094-4200-9d61-edb101c6ea84/rest",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -241,9 +304,9 @@
 					"path": [
 						"v1",
 						"organizations",
-						"e254f8c-c442-4ebe-a82a-e2fc1d1ff78a",
+						"442adb6e-fa58-47f3-9ca2-ed1fecdfe86c",
 						"licenses",
-						"f3831f8c-c338-4ebe-a82a-e2fc1d1ff78a",
+						"38777179-7094-4200-9d61-edb101c6ea84",
 						"rest"
 					]
 				}
@@ -253,6 +316,16 @@
 		{
 			"name": "licensing service - list licenses -  ribbon type feign",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -260,7 +333,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:9000/v1/organizations/e254f8c-c442-4ebe-a82a-e2fc1d1ff78a/licenses/f3831f8c-c338-4ebe-a82a-e2fc1d1ff78a/feign",
+					"raw": "http://localhost:9000/v1/organizations/442adb6e-fa58-47f3-9ca2-ed1fecdfe86c/licenses/38777179-7094-4200-9d61-edb101c6ea84/feign",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -269,9 +342,9 @@
 					"path": [
 						"v1",
 						"organizations",
-						"e254f8c-c442-4ebe-a82a-e2fc1d1ff78a",
+						"442adb6e-fa58-47f3-9ca2-ed1fecdfe86c",
 						"licenses",
-						"f3831f8c-c338-4ebe-a82a-e2fc1d1ff78a",
+						"38777179-7094-4200-9d61-edb101c6ea84",
 						"feign"
 					]
 				}
@@ -281,6 +354,16 @@
 		{
 			"name": "licensing service - create license",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -308,6 +391,16 @@
 		{
 			"name": "licensing service - update license",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
@@ -335,6 +428,16 @@
 		{
 			"name": "licensing service - delete license",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
 				"body": {
@@ -362,6 +465,16 @@
 		{
 			"name": "zuul routes",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -386,6 +499,16 @@
 		{
 			"name": "zuul organizations",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -405,6 +528,183 @@
 						"v1",
 						"organizations",
 						"e254f8c-c442-4ebe-a82a-e2fc1d1ff78a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "zuul licensing service - list",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:5555/api/licensing/v1/organizations/e254f8c-c442-4ebe-a82a-e2fc1d1ff78a/licenses",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5555",
+					"path": [
+						"api",
+						"licensing",
+						"v1",
+						"organizations",
+						"e254f8c-c442-4ebe-a82a-e2fc1d1ff78a",
+						"licenses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "166b05c0-60ee-4062-b2b3-00ae6c9eda2b",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"token\", jsonData.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "authtest",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic Y29kZXJlZjokMmEkMTAkcDlQazBmUU5BUVNlc0k0dnV2S0EwT1phbkREMg==",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "any",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "mari",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8901/oauth/token",
+					"host": [
+						"localhost"
+					],
+					"port": "8901",
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "any",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "mari",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8901/user",
+					"host": [
+						"localhost"
+					],
+					"port": "8901",
+					"path": [
+						"user"
 					]
 				}
 			},
