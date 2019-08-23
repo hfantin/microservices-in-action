@@ -4,6 +4,7 @@ import com.github.hfantin.licensingservice.model.Organization
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpMethod
+import org.springframework.security.oauth2.client.OAuth2RestTemplate
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 
@@ -30,13 +31,18 @@ class OrganizationRestTemplateClient {
     @Autowired
     private lateinit var restTemplate: RestTemplate
 
+//    @Autowired
+//    private lateinit var restTemplate: OAuth2RestTemplate
+
+
     fun getOrganization(organizationId: String): Organization? {
         LOG.info("getOrganization - id=$organizationId")
         val restExchange = restTemplate.exchange(
-                "http://organizationservice/v1/organizations/{organizationId}",
+//                "http://organizationservice/v1/organizations/{organizationId}",
+                "http://zuulservice:5555/api/organization/v1/organizations/{organizationId}",
                 HttpMethod.GET, null, Organization::class.java, organizationId)
         LOG.info("getOrganization - restExchange.getBody()=${restExchange.getBody()}")
-        return restExchange.getBody()
+        return restExchange.body
     }
 
 }

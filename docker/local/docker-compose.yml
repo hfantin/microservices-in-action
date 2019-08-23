@@ -90,7 +90,7 @@ services:
       CONFIGSERVER_PORT:   "8888"
       DATABASESERVER_PORT: "5432"
       ENCRYPT_KEY:       "IMSYMMETRIC"
-      AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
+      AUTHSERVER_URI:   "http://authenticationservice:8901/user"
     depends_on:
       - configserver
 
@@ -107,7 +107,7 @@ services:
       CONFIGSERVER_PORT:   "8888"
       DATABASESERVER_PORT: "5432"
       ENCRYPT_KEY:       "IMSYMMETRIC"
-      AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
+      AUTHSERVER_URI:   "http://authenticationservice:8901/user"
     depends_on:
       - configserver
 
@@ -124,6 +124,6 @@ services:
       CONFIGSERVER_PORT:   "8888"
       DATABASESERVER_PORT: "5432"
       ENCRYPT_KEY:       "IMSYMMETRIC"
-      AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
+      AUTHSERVER_URI:   "http://authenticationservice:8901/user"
     depends_on:
       - configserver
