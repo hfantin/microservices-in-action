@@ -13,3 +13,5 @@ spring:
                     lob:
                         non_contextual_creation: true
         show-sql: true
+signing:
+    key: "345345fsdfsf5345"

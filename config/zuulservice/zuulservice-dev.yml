@@ -13,3 +13,5 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 2500
+signing:
+  key: "345345fsdfsf5345"
