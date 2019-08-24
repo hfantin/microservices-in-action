@@ -86,8 +86,12 @@ cross cutting concerns included in a **Service Gateway**:
 
 
 security:   
-- ....
+- As you build your microservices for production use, you should be building your microservices security around the following practices:   
 
+1. Use HTTP S/Secure Sockets Layer (SSL) for all service communication.
+2. All service calls should go through an API gateway.
+3. Zone your services into a public API and private API .
+4. Limit the attack surface of your microservices by locking down unneeded network ports.
 
 
 #### Links

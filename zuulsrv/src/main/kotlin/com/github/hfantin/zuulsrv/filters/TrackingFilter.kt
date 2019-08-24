@@ -33,32 +33,38 @@ class TrackingFilter : ZuulFilter() {
     private fun generateCorrelationId() = java.util.UUID.randomUUID().toString()
 
     private fun getOrganizationId(): String {
-        val authToken = filterUtils.getAuthToken()?.let { it.replace("Bearer ", "") } ?: ""
         var result = ""
-        try {
-            val claims = Jwts.parser()
-                    .setSigningKey(serviceConfig.jwtSigningKey.toByteArray(Charsets.UTF_8))
-                    .parseClaimsJws(authToken).body
-            result = "${claims["organizationId"]}"
-        } catch (e: Exception) {
-            logger.error("", e)
+        filterUtils.getAuthToken()?.let {
+            val token = it.substringAfterLast("Bearer ")
+            logger.info("getOrganizationId() - authToken: {}. ", token)
+            try {
+                val claims = Jwts.parser()
+                        .setSigningKey(serviceConfig.jwtSigningKey.toByteArray(Charsets.UTF_8))
+                        .parseClaimsJws(token).body
+                result = "${claims["organizationId"]}"
+                logger.info("gettting organizationId: {}. ", result)
+            } catch (e: Exception) {
+                logger.error("", e)
+            }
         }
         return result
     }
 
     override fun run(): Any? {
         if (isCorrelationIdPresent()) {
-            logger.debug("tmx-correlation-id found in tracking filter: {}. ", filterUtils.getCorrelationId())
+            logger.info("tmx-correlation-id found in tracking filter: {}. ", filterUtils.getCorrelationId())
         } else {
             filterUtils.setCorrelationId(generateCorrelationId())
-            logger.debug("tmx-correlation-id generated in tracking filter: {}.", filterUtils.getCorrelationId())
+            logger.info("tmx-correlation-id generated in tracking filter: {}.", filterUtils.getCorrelationId())
         }
 
         val ctx = RequestContext.getCurrentContext()
 
-        println("The organization id from the token is : " + getOrganizationId())
+
         filterUtils.setOrgId(getOrganizationId())
-        logger.debug("Processing incoming request for {}.", ctx.request.requestURI)
+        logger.info("The organization id from the token is : " + filterUtils.getOrgId())
+
+        logger.info("Processing incoming request for {}.", ctx.request.requestURI)
         return null
     }
 

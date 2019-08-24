@@ -22,6 +22,10 @@ class FilterUtils {
         request.getHeader(AUTH_TOKEN)
     }
 
+    fun getTmxAuthToken() = with(RequestContext.getCurrentContext()) {
+        request.getHeader(TMX_AUTH_TOKEN)
+    }
+
     fun getServiceId() = with(RequestContext.getCurrentContext()) { get("serviceId")?.toString() ?: "" }
 
     private fun getHeader(name: String) = with(RequestContext.getCurrentContext()) {
@@ -32,7 +36,8 @@ class FilterUtils {
 
     companion object {
         val CORRELATION_ID = "tmx-correlation-id"
-        val AUTH_TOKEN = "tmx-auth-token"
+        val TMX_AUTH_TOKEN = "tmx-auth-token"
+        val AUTH_TOKEN = "Authorization"
         val USER_ID = "tmx-user-id"
         val ORG_ID = "tmx-org-id"
         val PRE_FILTER_TYPE = "pre"
