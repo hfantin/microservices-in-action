@@ -1,11 +1,14 @@
 package com.github.hfantin.zuulsrv.filters
 
+import com.github.hfantin.zuulsrv.config.ServiceConfig
 import com.netflix.zuul.ZuulFilter
 import com.netflix.zuul.context.RequestContext
+import io.jsonwebtoken.Jwts
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import java.nio.charset.Charset
 
 /**
  * this is the pre filter
@@ -15,6 +18,9 @@ class TrackingFilter : ZuulFilter() {
 
     @Autowired
     private lateinit var filterUtils: FilterUtils
+
+    @Autowired
+    private lateinit var serviceConfig: ServiceConfig
 
     private fun isCorrelationIdPresent() = filterUtils.getCorrelationId() != null
 
@@ -26,6 +32,20 @@ class TrackingFilter : ZuulFilter() {
 
     private fun generateCorrelationId() = java.util.UUID.randomUUID().toString()
 
+    private fun getOrganizationId(): String {
+        val authToken = filterUtils.getAuthToken()?.let { it.replace("Bearer ", "") } ?: ""
+        var result = ""
+        try {
+            val claims = Jwts.parser()
+                    .setSigningKey(serviceConfig.jwtSigningKey.toByteArray(Charsets.UTF_8))
+                    .parseClaimsJws(authToken).body
+            result = "${claims["organizationId"]}"
+        } catch (e: Exception) {
+            logger.error("", e)
+        }
+        return result
+    }
+
     override fun run(): Any? {
         if (isCorrelationIdPresent()) {
             logger.debug("tmx-correlation-id found in tracking filter: {}. ", filterUtils.getCorrelationId())
@@ -35,6 +55,9 @@ class TrackingFilter : ZuulFilter() {
         }
 
         val ctx = RequestContext.getCurrentContext()
+
+        println("The organization id from the token is : " + getOrganizationId())
+        filterUtils.setOrgId(getOrganizationId())
         logger.debug("Processing incoming request for {}.", ctx.request.requestURI)
         return null
     }

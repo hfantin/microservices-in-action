@@ -1,8 +1,11 @@
 package com.github.hfantin.licensingservice.config
 
+import com.github.hfantin.licensingservice.util.UserContextInterceptor
 import org.springframework.cloud.client.loadbalancer.LoadBalanced
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Primary
+import org.springframework.http.client.ClientHttpRequestInterceptor
 import org.springframework.security.oauth2.client.OAuth2ClientContext
 import org.springframework.security.oauth2.client.OAuth2RestTemplate
 import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails
@@ -20,6 +23,24 @@ class RestTemplateConfig {
     @LoadBalanced
     fun restTemplate() = RestTemplate()
 
+
+/*
+    Its not necessary to use this custom rest template like the book sugests in section 7.10(page 219), 
+    maybe its already implemented in latest version of spring security...
+    @Primary
+    @Bean
+    fun getCustomRestTemplate(): RestTemplate {
+        val template = RestTemplate()
+        val interceptors = template.interceptors
+        if (interceptors == null) {
+            template.interceptors = listOf<ClientHttpRequestInterceptor>(UserContextInterceptor())
+        } else {
+            interceptors.add(UserContextInterceptor())
+            template.interceptors = interceptors
+        }
+
+        return template
+    }*/
 
     /**
      * I dont know if is necessary
