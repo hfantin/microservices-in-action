@@ -10,10 +10,10 @@ import javax.persistence.Table
 @Table(name = "user_orgs")
 data class UserOrganization(
         @Column(name = "organization_id", nullable = false)
-        var organizationid: String,
+        var organizationid: String = "",
 
         @Id
         @Column(name = "user_name", nullable = false)
-        var userName: String
+        var userName: String = ""
 
 ) : Serializable
