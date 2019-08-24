@@ -12,10 +12,11 @@ import java.util.*
 class UserController {
 
     @RequestMapping(value = ["/user"], produces = ["application/json"])
-    fun user(user: OAuth2Authentication): Map<String, Any> {
-        val userInfo = HashMap<String, Any>()
-        userInfo["user"] = user.userAuthentication.principal
-        userInfo["authorities"] = AuthorityUtils.authorityListToSet(user.userAuthentication.authorities)
-        return userInfo
-    }
+    fun user(user: OAuth2Authentication) = hashMapOf("user" to user.userAuthentication.principal, "authorities" to AuthorityUtils.authorityListToSet(user.userAuthentication.authorities))
+//
+//                HashMap<String, Any>()
+//        userInfo["user"] = user.userAuthentication.principal
+//        userInfo["authorities"] = AuthorityUtils.authorityListToSet(user.userAuthentication.authorities)
+//        return userInfo
+//    }
 }
