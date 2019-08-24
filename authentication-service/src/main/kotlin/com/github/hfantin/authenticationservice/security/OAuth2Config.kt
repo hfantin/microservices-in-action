@@ -1,3 +1,4 @@
+/*
 package com.github.hfantin.authenticationservice.security
 
 import org.springframework.beans.factory.annotation.Autowired
@@ -43,4 +44,4 @@ class OAuth2Config : AuthorizationServerConfigurerAdapter() {
         security.checkTokenAccess("isAuthenticated()")
     }
 
-}
+}*/
