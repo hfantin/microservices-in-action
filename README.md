@@ -7,6 +7,7 @@
 - chapter 5 - resiliency patterns - hystrix
 - chapter 6 - service routing  and zuul
 - chapter 7 - security
+- chapter 8 - event driven architecture(EDA)
 
 > test url http://localhost:9000/v1/organizations/{organizationId}/licenses/{licenceId}
 
@@ -93,6 +94,9 @@ security:
 3. Zone your services into a public API and private API .
 4. Limit the attack surface of your microservices by locking down unneeded network ports.
 
+EDA:   
+
+last page 236 8.2 Introducing Spring Cloud Stream
 
 #### Links
 1. alternatives to json:    
@@ -111,6 +115,7 @@ security:
 [cap5](https://github.com/carnellj/spmia-chapter5)   
 [cap6](https://github.com/carnellj/spmia-chapter6)   
 [cap7](https://github.com/carnellj/spmia-chapter7)   
+[cap8](https://github.com/carnellj/spmia-chapter8)   
 [config server](https://github.com/carnellj/config-repo)     
 
 
