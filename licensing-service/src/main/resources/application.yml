@@ -1,6 +1,19 @@
 server:
   port: 9000
 
+spring:
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: orgChangeTopic
+          content-type: application/json
+          group: licensingGroup
+      kafka:
+        binder:
+          zkNodes: localhost:9092
+          brokers: localhost:9092
+
 management:
   endpoints:
     web:
