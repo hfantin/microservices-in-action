@@ -1,5 +1,5 @@
 server:
-  port: 9001
+  port: 9003
 
 spring:
   cloud:
@@ -10,9 +10,9 @@ spring:
           content-type: application/json
       kafka:
         binder:
-#          brokers: localhost:9092
-          zkNodes: localhost
-          brokers: localhost
+          autoCreateTopics: true
+          zkNodes: localhost:9092
+          brokers: localhost:9092
 
 management:
   endpoints:
