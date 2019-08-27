@@ -17,14 +17,14 @@ class OrganizationServiceController {
     @GetMapping("/{organizationId}")
     fun getOrganization(@PathVariable("organizationId") organizationId: String) = organizationService.get(organizationId).get()
 
-    @PutMapping("/{organizationId}")
-    fun updateOrganization(@PathVariable organizationId: String, @RequestBody organization: Organization) = organizationService.update(organization)
-
     @PostMapping
     fun saveOrganization(@RequestBody organization: Organization) = organizationService.save(organization)
 
+    @PutMapping("/{organizationId}")
+    fun updateOrganization(@PathVariable organizationId: String, @RequestBody organization: Organization) = organizationService.update(organization)
+
     @DeleteMapping("/{organizationId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteOrganization(@PathVariable organizationId: String, @RequestBody organization: Organization) = organizationService.delete(organizationId)
+    fun deleteOrganization(@PathVariable organizationId: String) = organizationService.delete(organizationId)
 
 }
