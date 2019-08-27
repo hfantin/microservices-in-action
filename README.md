@@ -116,7 +116,11 @@ last page 236 8.2 Introducing Spring Cloud Stream
 [cap6](https://github.com/carnellj/spmia-chapter6)   
 [cap7](https://github.com/carnellj/spmia-chapter7)   
 [cap8](https://github.com/carnellj/spmia-chapter8)   
-[config server](https://github.com/carnellj/config-repo)     
+[config server](https://github.com/carnellj/config-repo)    
+
+8. [kafka](https://www.cloudera.com/documentation/kafka/latest/topics/kafka_command_line.html)    
+   [another example](https://www.confluent.io/blog/spring-for-apache-kafka-deep-dive-part-2-apache-kafka-spring-cloud-stream)   
+9. [cloud stream with rabbitmq](https://www.baeldung.com/spring-cloud-stream)    
 
 
 #### books
@@ -135,3 +139,8 @@ com.github.hfantin.authenticationservice.ApplicationTests > contextLoads FAILED
 
 1 test completed, 1 failed
 ```
+
+- learn about spring-cloud-contract
+
+
+### Kafka: 

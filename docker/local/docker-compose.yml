@@ -1,26 +1,39 @@
-version: '2'
+version: '3.7'
 services:
   database:
     image: postgres:9.5
     ports:
-      - "5432:5432"
+      - 5432:5432
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: p0stgr@s
       POSTGRES_DB:       eagle_eye_local
     volumes:
       - ../.data/postgres:/var/lib/postgresql/data
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+  kafkaserver:
+    image: spotify/kafka
+    ports:
+      - 2181:2181
+      - 9092:9092
+#    expose:
+#      - 9092
+#      - 2181
+
 
   eurekaserver:
     image: com.github.hfantin/eurekasrv:latest
     ports:
-      - "8761:8761"
+      - 8761:8761
     depends_on:
       - database
   configserver:
     image: com.github.hfantin/confsrv
     ports:
-      - "8888:8888"
+      - 8888:8888
     environment:
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT: "8761"
@@ -31,7 +44,7 @@ services:
   authenticationservice:
     image: com.github.hfantin/authentication-service:latest
     ports:
-      - "8901:8901"
+      - 8901:8901
     environment:
       PROFILE: "default"
       SERVER_PORT: "8901"
@@ -47,7 +60,7 @@ services:
   specialrouteservice:
     image: com.github.hfantin/specialroute-service:latest
     ports:
-      - "8910:8910"
+      - 8910:8910
     environment:
       PROFILE: "default"
       SERVER_PORT: "8910"
@@ -63,7 +76,7 @@ services:
   zuulserver:
     image: com.github.hfantin/zuulsrv:latest
     ports:
-      - "5555:5555"
+      - 5555:5555
     environment:
       PROFILE: "default"
       SERVER_PORT: "5555"
@@ -80,7 +93,7 @@ services:
   licensingservice:
     image: com.github.hfantin/licensing-service:latest
     ports:
-      - "9000:9000"
+      - 9000:9000
     environment:
       PROFILE: "default"
       SERVER_PORT: "9000"
@@ -97,15 +110,20 @@ services:
   organizationservice:
     image: com.github.hfantin/organization-service:latest
     ports:
-      - "9001:9001"
+      - 9001:9001
     environment:
       PROFILE: "default"
       SERVER_PORT: "9001"
       CONFIGSERVER_URI: "http://configserver:8888"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      KAFKASERVER_URI: "kafkaserver"
+      ZKSERVER_URI: "kafkaserver"
       EUREKASERVER_PORT:   "8761"
       CONFIGSERVER_PORT:   "8888"
       DATABASESERVER_PORT: "5432"
+      ZUULSERVER_PORT:     "5555"
+      KAFKASERVER_PORT:    "2181"
+      REDIS_PORT:          "6379"
       ENCRYPT_KEY:       "IMSYMMETRIC"
       AUTHSERVER_URI:   "http://authenticationservice:8901/user"
     depends_on:
@@ -114,7 +132,7 @@ services:
   organizationservicenew:
     image: com.github.hfantin/organization-new:latest
     ports:
-      - "9002:9002"
+      - 9002:9002
     environment:
       PROFILE: "default"
       SERVER_PORT: "9002"

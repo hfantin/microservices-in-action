@@ -20,7 +20,7 @@ class OrganizationServiceController {
     @PutMapping("/{organizationId}")
     fun updateOrganization(@PathVariable organizationId: String, @RequestBody organization: Organization) = organizationService.update(organization)
 
-    @PostMapping("/{organizationId}")
+    @PostMapping
     fun saveOrganization(@RequestBody organization: Organization) = organizationService.save(organization)
 
     @DeleteMapping("/{organizationId}")
