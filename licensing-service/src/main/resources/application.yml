@@ -6,13 +6,26 @@ spring:
     stream:
       bindings:
         input:
-          destination: orgChangeTopic
-          content-type: application/json
-          group: licensingGroup
-      kafka:
-        binder:
-          zkNodes: localhost:9092
-          brokers: localhost:9092
+          destination: organization.change
+  rabbitmq:
+    host: localhost
+    username: admin
+    password: 123456
+    port: 5672
+
+
+#spring:
+#  cloud:
+#    stream:
+#      bindings:
+#        input:
+#          destination: orgChangeTopic
+#          content-type: application/json
+#          group: licensingGroup
+#      kafka:
+#        binder:
+#          zkNodes: localhost:9092
+#          brokers: localhost:9092
 
 management:
   endpoints:

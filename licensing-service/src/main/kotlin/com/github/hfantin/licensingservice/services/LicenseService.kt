@@ -7,10 +7,8 @@ import com.github.hfantin.licensingservice.model.License
 import com.github.hfantin.licensingservice.model.Organization
 import com.github.hfantin.licensingservice.repository.LicenseRepository
 import com.github.hfantin.licensingservice.util.UserContextHolder
-import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty
-import kotlinx.coroutines.delay
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

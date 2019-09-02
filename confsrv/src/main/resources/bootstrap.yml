@@ -8,4 +8,4 @@ spring:
           uri: https://github.com/hfantin/microservices-in-action
           search-paths: config/*
         encrypt:
-          enabled: false
+          enabled: true

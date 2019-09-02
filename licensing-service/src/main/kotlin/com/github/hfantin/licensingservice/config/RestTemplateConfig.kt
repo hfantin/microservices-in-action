@@ -1,14 +1,8 @@
 package com.github.hfantin.licensingservice.config
 
-import com.github.hfantin.licensingservice.util.UserContextInterceptor
 import org.springframework.cloud.client.loadbalancer.LoadBalanced
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Primary
-import org.springframework.http.client.ClientHttpRequestInterceptor
-import org.springframework.security.oauth2.client.OAuth2ClientContext
-import org.springframework.security.oauth2.client.OAuth2RestTemplate
-import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails
 import org.springframework.web.client.RestTemplate
 
 
