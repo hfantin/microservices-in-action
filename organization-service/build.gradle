@@ -18,6 +18,7 @@ ext{
 }
 dependencies {
 	// springboot
+	implementation("org.springframework.boot:spring-boot-starter-amqp")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -30,7 +31,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure")
 	implementation('org.springframework.cloud:spring-cloud-stream')
-	implementation('org.springframework.cloud:spring-cloud-starter-stream-kafka')
+	implementation('org.springframework.cloud:spring-cloud-stream-binder-rabbit')
+//	implementation('org.springframework.cloud:spring-cloud-starter-stream-kafka')
 	// TODO check if its needed - in the book he is using.
 	//	implementation('com.netflix.hystrix:hystrix-javanica:1.5.9')
 	// dependencies to work with java 9+

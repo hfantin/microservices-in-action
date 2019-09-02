@@ -21,7 +21,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableDiscoveryClient
 @EnableCircuitBreaker
 @EnableResourceServer
-@EnableBinding(Source::class)
 class Application
 
 fun main(args: Array<String>) {

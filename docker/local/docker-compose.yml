@@ -14,11 +14,20 @@ services:
     image: redis:alpine
     ports:
       - 6379:6379
-  kafkaserver:
-    image: spotify/kafka
+  rabbitmq:
+    image: rabbitmq:management
     ports:
-      - 2181:2181
-      - 9092:9092
+      - 5672:5672
+      - 15672:15672
+      - 25672:25672
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=123456
+#  kafkaserver:
+#    image: spotify/kafka
+#    ports:
+#      - 2181:2181
+#      - 9092:9092
 #    expose:
 #      - 9092
 #      - 2181
@@ -99,40 +108,48 @@ services:
       SERVER_PORT: "9000"
       CONFIGSERVER_URI: "http://configserver:8888"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-      KAFKASERVER_URI: "kafkaserver"
-      ZKSERVER_URI: "kafkaserver"
+#      KAFKASERVER_URI: "kafkaserver"
+#      ZKSERVER_URI: "kafkaserver"
+#      KAFKASERVER_PORT:    "2181"
+      RABBITMQSERVER_URI: "rabbitmq"
+      RABBITMQSERVER_USER: "admin"
+      RABBITMQSERVER_PASS: "12346"
+      RABBITMQ_PORT:       "5672"
       EUREKASERVER_PORT:   "8761"
       CONFIGSERVER_PORT:   "8888"
       DATABASESERVER_PORT: "5432"
       ZUULSERVER_PORT:     "5555"
-      KAFKASERVER_PORT:    "2181"
       REDIS_PORT:          "6379"
       ENCRYPT_KEY:       "IMSYMMETRIC"
       AUTHSERVER_URI:   "http://authenticationservice:8901/user"
     depends_on:
       - configserver
 
-  organizationservice:
-    image: com.github.hfantin/organization-service:latest
-    ports:
-      - 9001:9001
-    environment:
-      PROFILE: "default"
-      SERVER_PORT: "9001"
-      CONFIGSERVER_URI: "http://configserver:8888"
-      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-      KAFKASERVER_URI: "kafkaserver"
-      ZKSERVER_URI: "kafkaserver"
-      EUREKASERVER_PORT:   "8761"
-      CONFIGSERVER_PORT:   "8888"
-      DATABASESERVER_PORT: "5432"
-      ZUULSERVER_PORT:     "5555"
-      KAFKASERVER_PORT:    "2181"
-      REDIS_PORT:          "6379"
-      ENCRYPT_KEY:       "IMSYMMETRIC"
-      AUTHSERVER_URI:   "http://authenticationservice:8901/user"
-    depends_on:
-      - configserver
+#  organizationservice:
+#    image: com.github.hfantin/organization-service:latest
+#    ports:
+#      - 9001:9001
+#    environment:
+#      PROFILE: "default"
+#      SERVER_PORT: "9001"
+#      CONFIGSERVER_URI: "http://configserver:8888"
+#      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+##      KAFKASERVER_URI: "kafkaserver"
+##      ZKSERVER_URI: "kafkaserver"
+##      KAFKASERVER_PORT:    "2181"
+#      RABBITMQSERVER_URI: "rabbitmq"
+#      RABBITMQSERVER_USER: "admin"
+#      RABBITMQSERVER_PASS: "12346"
+#      RABBITMQ_PORT:       "5672"
+#      EUREKASERVER_PORT:   "8761"
+#      CONFIGSERVER_PORT:   "8888"
+#      DATABASESERVER_PORT: "5432"
+#      ZUULSERVER_PORT:     "5555"
+#      REDIS_PORT:          "6379"
+#      ENCRYPT_KEY:       "IMSYMMETRIC"
+#      AUTHSERVER_URI:   "http://authenticationservice:8901/user"
+#    depends_on:
+#      - configserver
 
   organizationservicenew:
     image: com.github.hfantin/organization-new:latest

@@ -27,8 +27,12 @@ echo "********************************************************"
 java -Djava.security.egd=file:/dev/./urandom -Dserver.port=$SERVER_PORT   \
      -Deureka.client.serviceUrl.defaultZone=$EUREKASERVER_URI             \
      -Dspring.cloud.config.uri=$CONFIGSERVER_URI                          \
-     -Dspring.cloud.stream.kafka.binder.zkNodes=$KAFKASERVER_URI          \
-     -Dspring.cloud.stream.kafka.binder.brokers=$ZKSERVER_URI             \
+#     -Dspring.cloud.stream.kafka.binder.zkNodes=$KAFKASERVER_URI          \
+#     -Dspring.cloud.stream.kafka.binder.brokers=$ZKSERVER_URI             \
+     -Dspring.rabbitmq.host=$RABBITMQSERVER_URI  \
+     -Dspring.rabbitmq.username=$RABBITMQSERVER_USER  \
+     -Dspring.rabbitmq.password=$RABBITMQSERVER_PASS  \
+     -Dspring.rabbitmq.port=$RABBITMQ_PORT  \
      -Dspring.profiles.active=$PROFILE                                   \
      -Dsecurity.oauth2.resource.userInfoUri=$AUTHSERVER_URI               \
      -jar app.jar

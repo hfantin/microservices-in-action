@@ -5,14 +5,19 @@ spring:
   cloud:
     stream:
       bindings:
-        output:
-          destination:  orgChangeTopic
-          content-type: application/json
-      kafka:
-        binder:
-          autoCreateTopics: true
-          zkNodes: localhost:9092
-          brokers: localhost:9092
+        organization-channel:
+          destination:  organization.change
+#          content-type: application/json
+#      kafka:
+#        binder:
+#          autoCreateTopics: true
+#          zkNodes: localhost:9092
+#          brokers: localhost:9092
+  rabbitmq:
+    host: localhost
+    username: admin
+    password: 123456
+    port: 5672
 
 management:
   endpoints:
