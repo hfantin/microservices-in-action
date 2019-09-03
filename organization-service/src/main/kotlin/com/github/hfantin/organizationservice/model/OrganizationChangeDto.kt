@@ -6,8 +6,8 @@ import javax.persistence.Id
 import javax.persistence.Table
 
 class OrganizationChangeDto(
-        private val action: Action,
-        private val id: String
+        val action: Action,
+        val id: String
 ){
     override fun toString() = "{$action: $id}"
 }

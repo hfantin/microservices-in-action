@@ -11,8 +11,8 @@ class ChangeOrganizationProducer {
     private var logger = LoggerFactory.getLogger(javaClass.simpleName)
 
     fun send(msg: OrganizationChangeDto, changeOrganizationSource: ChangeOrganizationSource): Boolean {
-        val message = MessageBuilder.withPayload(msg).build()
-        logger.info("sending message $msg")
+        val message = MessageBuilder.withPayload("${msg.action}:${msg.id}").build()
+        logger.info("sending message $msg - message=$message")
         return changeOrganizationSource.sendChangeOrganization().send(message)
     }
 
