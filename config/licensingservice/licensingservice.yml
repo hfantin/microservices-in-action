@@ -20,9 +20,3 @@ spring:
         port: 5672
 signing:
     key: "345345fsdfsf5345"
-
-
-        RABBITMQSERVER_URI: "rabbitmq"
-    #      RABBITMQSERVER_USER: "admin"
-    #      RABBITMQSERVER_PASS: "123456"
-    #      RABBITMQ_PORT:       "5672"

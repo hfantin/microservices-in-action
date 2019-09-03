@@ -66,63 +66,59 @@ services:
     depends_on:
       - configserver
 
-#  specialrouteservice:
-#    image: com.github.hfantin/specialroute-service:latest
-#    ports:
-#      - 8910:8910
-#    environment:
-#      PROFILE: "default"
-#      SERVER_PORT: "8910"
-#      CONFIGSERVER_URI: "http://configserver:8888"
-#      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-#      EUREKASERVER_PORT:   "8761"
-#      CONFIGSERVER_PORT:   "8888"
-#      DATABASESERVER_PORT: "5432"
-#      ENCRYPT_KEY:       "IMSYMMETRIC"
-#    depends_on:
-#      - configserver
+  specialrouteservice:
+    image: com.github.hfantin/specialroute-service:latest
+    ports:
+      - 8910:8910
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8910"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_PORT:   "8888"
+      DATABASESERVER_PORT: "5432"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    depends_on:
+      - configserver
 
-#  zuulserver:
-#    image: com.github.hfantin/zuulsrv:latest
-#    ports:
-#      - 5555:5555
-#    environment:
-#      PROFILE: "default"
-#      SERVER_PORT: "5555"
-#      CONFIGSERVER_URI: "http://configserver:8888"
-#      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-#      EUREKASERVER_PORT:        "8761"
-#      DATABASESERVER_PORT:      "5432"
-#      CONFIGSERVER_PORT:        "8888"
-#      ORGSERVERNEW_PORT:        "9002"
-#      ENCRYPT_KEY:       "IMSYMMETRIC"
-#    depends_on:
-#      - configserver
-#
-#  licensingservice:
-#    image: com.github.hfantin/licensing-service:latest
-#    ports:
-#      - 9000:9000
-#    environment:
-#      PROFILE: "default"
-#      SERVER_PORT: "9000"
-#      CONFIGSERVER_URI: "http://configserver:8888"
-#      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-#      RABBITMQ_URI: "rabbitmq"
-#      RABBITMQ_USER: "admin"
-#      RABBITMQ_PASS: "123456"
-#      RABBITMQ_PORT:       "5672"
-#      EUREKASERVER_PORT:   "8761"
-#      CONFIGSERVER_PORT:   "8888"
-#      DATABASESERVER_PORT: "5432"
-#      ZUULSERVER_PORT:     "5555"
-#      REDIS_PORT:          "6379"
-#      ENCRYPT_KEY:       "IMSYMMETRIC"
-#      AUTHSERVER_URI:   "http://authenticationservice:8901/user"
-#    restart: on-failure
-#    depends_on:
-#      - rabbitmq
-#      - configserver
+  zuulserver:
+    image: com.github.hfantin/zuulsrv:latest
+    ports:
+      - 5555:5555
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "5555"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:        "8761"
+      DATABASESERVER_PORT:      "5432"
+      CONFIGSERVER_PORT:        "8888"
+      ORGSERVERNEW_PORT:        "9002"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    depends_on:
+      - configserver
+
+  licensingservice:
+    image: com.github.hfantin/licensing-service:latest
+    ports:
+      - 9000:9000
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "9000"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_PORT:   "8888"
+      DATABASESERVER_PORT: "5432"
+      ZUULSERVER_PORT:     "5555"
+      REDIS_PORT:          "6379"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+      AUTHSERVER_URI:   "http://authenticationservice:8901/user"
+    restart: on-failure
+    depends_on:
+      - rabbitmq
+      - configserver
 
   organizationservice:
     image: com.github.hfantin/organization-service:latest
@@ -144,19 +140,19 @@ services:
       - rabbitmq
       - configserver
 
-#  organizationservicenew:
-#    image: com.github.hfantin/organization-new:latest
-#    ports:
-#      - 9002:9002
-#    environment:
-#      PROFILE: "default"
-#      SERVER_PORT: "9002"
-#      CONFIGSERVER_URI: "http://configserver:8888"
-#      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-#      EUREKASERVER_PORT:   "8761"
-#      CONFIGSERVER_PORT:   "8888"
-#      DATABASESERVER_PORT: "5432"
-#      ENCRYPT_KEY:       "IMSYMMETRIC"
-#      AUTHSERVER_URI:   "http://authenticationservice:8901/user"
-#    depends_on:
-#      - configserver
+  organizationservicenew:
+    image: com.github.hfantin/organization-new:latest
+    ports:
+      - 9002:9002
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "9002"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_PORT:   "8888"
+      DATABASESERVER_PORT: "5432"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+      AUTHSERVER_URI:   "http://authenticationservice:8901/user"
+    depends_on:
+      - configserver
