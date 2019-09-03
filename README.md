@@ -142,5 +142,11 @@ com.github.hfantin.authenticationservice.ApplicationTests > contextLoads FAILED
 
 - learn about spring-cloud-contract
 
+- correlationId between EDA - licensing and organization
+- EDA - updates cache in organization service
+- replace organization-new by organization-service with param NEW
+- converts specialroutes-service into kotlin 
+- updates kotlin to latest version  
+
 
 ### Kafka: 

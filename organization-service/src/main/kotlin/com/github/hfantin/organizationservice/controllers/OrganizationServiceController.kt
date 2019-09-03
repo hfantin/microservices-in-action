@@ -21,7 +21,10 @@ class OrganizationServiceController {
     fun saveOrganization(@RequestBody organization: Organization) = organizationService.save(organization)
 
     @PutMapping("/{organizationId}")
-    fun updateOrganization(@PathVariable organizationId: String, @RequestBody organization: Organization) = organizationService.update(organization)
+    fun updateOrganization(@PathVariable organizationId: String, @RequestBody organization: Organization) {
+        organization.id = organizationId
+        organizationService.update(organization)
+    }
 
     @DeleteMapping("/{organizationId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

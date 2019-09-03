@@ -6,9 +6,13 @@ spring:
     stream:
       bindings:
         organization-channel:
-          destination:  organization.change
-          group: grupo
-          durableSubscription: true
+          destination:  orgChangeTopic
+          content-type: application/json
+#          destination:  organization.change
+#          group: grupo
+#          durableSubscription: true
+
+
 #          content-type: application/json
 #      kafka:
 #        binder:

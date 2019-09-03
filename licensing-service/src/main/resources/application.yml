@@ -8,7 +8,11 @@ spring:
         input:
           destination: organization.change
           group: grupo
-  #          content-type: application/json
+        inboundOrgChanges:
+          destination: orgChangeTopic
+          content-type: application/json
+          group: licensingGroup
+
   rabbitmq:
     host: localhost
     username: admin

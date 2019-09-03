@@ -13,5 +13,5 @@ class OrganizationChangeDto(
 }
 
 enum class Action {
-    SAVE, UPDATE, DELETE
+    SAVE, UPDATE, DELETE, GET
 }
