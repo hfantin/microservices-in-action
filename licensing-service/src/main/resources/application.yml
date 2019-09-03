@@ -7,6 +7,8 @@ spring:
       bindings:
         input:
           destination: organization.change
+          group: grupo
+#          content-type: application/json
   rabbitmq:
     host: localhost
     username: admin
