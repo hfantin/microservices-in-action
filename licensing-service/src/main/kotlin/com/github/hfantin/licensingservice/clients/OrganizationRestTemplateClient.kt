@@ -1,6 +1,7 @@
 package com.github.hfantin.licensingservice.clients
 
 import com.github.hfantin.licensingservice.model.Organization
+import com.github.hfantin.licensingservice.repository.OrganizationRedisRepository
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpMethod
@@ -25,7 +26,7 @@ import org.springframework.web.client.RestTemplate
 @Component
 class OrganizationRestTemplateClient {
 
-    private val LOG by lazy { LoggerFactory.getLogger(OrganizationRestTemplateClient::class.java) }
+    private val LOG = LoggerFactory.getLogger(javaClass.simpleName)
 
     @Autowired
     private lateinit var restTemplate: RestTemplate
@@ -33,15 +34,42 @@ class OrganizationRestTemplateClient {
 //    @Autowired
 //    private lateinit var restTemplate: OAuth2RestTemplate
 
+    @Autowired
+    private lateinit var organizationRedisRepository: OrganizationRedisRepository
+
+    fun checkCacheRedis(organizationId: String) = try {
+        LOG.info("get org from redis cache: $organizationId")
+        organizationRedisRepository.findOrganization(organizationId)
+    } catch (e: Exception) {
+        LOG.error("error while trying to get orgs from redis cache: {}", e.message, e)
+        null
+    }
+
+    fun cacheOrganization(organization: Organization?) = try {
+        LOG.info("caching organization in redis cache: $organization")
+        organization?.let {
+            organizationRedisRepository.saveOrganization(it)
+        }
+    } catch (e: Exception) {
+        LOG.error("error while trying to save organization in redis cache: {}", e.message, e)
+    }
+
 
     fun getOrganization(organizationId: String): Organization? {
-        LOG.info("getOrganization - id=$organizationId")
-        val restExchange = restTemplate.exchange(
+        val organizationFromCache = checkCacheRedis(organizationId)
+        LOG.info("getOrganization - id=$organizationId - em cache=$organizationFromCache")
+        return organizationFromCache ?: run {
+            val restExchange = restTemplate.exchange(
 //                "http://organizationservice/v1/organizations/{organizationId}",
-                "http://zuulservice:5555/api/organization/v1/organizations/{organizationId}",
-                HttpMethod.GET, null, Organization::class.java, organizationId)
-        LOG.info("getOrganization - restExchange.getBody()=${restExchange.getBody()}")
-        return restExchange.body
+                    "http://zuulservice:5555/api/organization/v1/organizations/{organizationId}",
+                    HttpMethod.GET, null, Organization::class.java, organizationId)
+            LOG.info("getOrganization - restExchange.getBody()=${restExchange.getBody()}")
+            val orgFromResource = restExchange.body
+            LOG.info("getOrganization - id=$organizationId - buscando no resource=$orgFromResource")
+            cacheOrganization(orgFromResource)
+            return orgFromResource
+        }
+
     }
 
 }

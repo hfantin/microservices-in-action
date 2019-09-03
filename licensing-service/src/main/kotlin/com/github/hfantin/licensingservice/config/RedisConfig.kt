@@ -3,19 +3,32 @@ package com.github.hfantin.licensingservice.config
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.data.redis.connection.RedisStandaloneConfiguration
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory
+import org.springframework.data.redis.core.RedisTemplate
+import org.springframework.data.redis.serializer.GenericToStringSerializer
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer
+import org.springframework.data.redis.serializer.StringRedisSerializer
 
 @Configuration
 class RedisConfig {
 
-    @Value("\${redis.host}")
+    @Value("\${spring.redis.server}")
     private lateinit var server: String
 
-    @Value("\${redis.port}")
+    @Value("\${spring.redis.port}")
     private var port: Int = 0
-    
+
     @Bean
-    fun redisConnectionFactory() = JedisConnectionFactory(RedisStandaloneConfiguration(server, port))
+    fun redisConnectionFactory() = LettuceConnectionFactory(server, port)
+
+    @Bean
+    fun redisTemplate() = RedisTemplate<String, Any>().apply {
+        keySerializer = StringRedisSerializer()
+        hashKeySerializer = GenericToStringSerializer<Any>(Any::class.java)
+        hashValueSerializer = JdkSerializationRedisSerializer()
+        valueSerializer = JdkSerializationRedisSerializer()
+        this.setConnectionFactory(redisConnectionFactory())
+    }
+
 
 }

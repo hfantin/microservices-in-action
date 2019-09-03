@@ -8,13 +8,18 @@ spring:
         input:
           destination: organization.change
           group: grupo
-#          content-type: application/json
+  #          content-type: application/json
   rabbitmq:
     host: localhost
     username: admin
     password: 123456
     port: 5672
 
+  redis:
+    server: localhost
+    port: 6379
+  cache:
+    type: redis
 
 #spring:
 #  cloud:
