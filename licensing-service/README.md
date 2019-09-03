@@ -12,4 +12,7 @@
 
 
 - to run local, put this in the environment variables:   
-> ENCRYPT_KEY=IMSYMMETRIC;spring.profiles.active=dev 
+> ENCRYPT_KEY=IMSYMMETRIC;spring.profiles.active=dev
+
+
+- exemplos com [redis](https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/) 
