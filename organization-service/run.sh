@@ -29,4 +29,5 @@ java -Djava.security.egd=file:/dev/./urandom -Dserver.port=$SERVER_PORT   \
      -Dspring.cloud.config.uri=$CONFIGSERVER_URI                          \
      -Dspring.profiles.active=$PROFILE                                    \
      -Dsecurity.oauth2.resource.userInfoUri=$AUTHSERVER_URI               \
+     -Dorganization.prefix=$PREFIX  \
      -jar app.jar

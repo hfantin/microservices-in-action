@@ -16,6 +16,6 @@ class ServiceConfig {
 //    lateinit var  redisPort: String
 
     @Value("\${signing.key}")
-    lateinit var  jwtSigningKey: String
+    lateinit var jwtSigningKey: String
 
 }

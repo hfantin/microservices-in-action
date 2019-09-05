@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest
 @Component
 class UserContextFilter : Filter {
 
-    companion object{
+    companion object {
         private val logger = LoggerFactory.getLogger(UserContextFilter::class.java)
     }
 

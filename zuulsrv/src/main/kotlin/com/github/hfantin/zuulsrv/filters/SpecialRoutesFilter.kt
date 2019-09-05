@@ -2,7 +2,6 @@ package com.github.hfantin.zuulsrv.filters
 
 
 import com.github.hfantin.zuulsrv.model.AbTestingRoute
-import com.github.hfantin.zuulsrv.utils.UserContextFilter
 import com.netflix.zuul.ZuulFilter
 import com.netflix.zuul.context.RequestContext
 import org.apache.http.Header
@@ -15,7 +14,6 @@ import org.apache.http.client.methods.HttpPost
 import org.apache.http.client.methods.HttpPut
 import org.apache.http.entity.ContentType
 import org.apache.http.entity.InputStreamEntity
-import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.impl.client.HttpClients
 import org.apache.http.message.BasicHeader
 import org.apache.http.message.BasicHttpRequest
@@ -31,14 +29,11 @@ import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.RestTemplate
-
-import javax.servlet.http.HttpServletRequest
 import java.io.IOException
 import java.io.InputStream
 import java.net.URL
-import java.util.ArrayList
-import java.util.Random
-import javax.servlet.ServletInputStream
+import java.util.*
+import javax.servlet.http.HttpServletRequest
 
 /**
  * this is a dynamic route filter, normaly used to do A/B testing.
@@ -63,7 +58,7 @@ class SpecialRoutesFilter : ZuulFilter() {
     override fun shouldFilter() = SHOULD_FILTER
 
     private fun getAbRoutingInfo(serviceName: String): AbTestingRoute? {
-        var restExchange: ResponseEntity<AbTestingRoute>? = null
+        var restExchange: ResponseEntity<AbTestingRoute>?
         try {
             restExchange = restTemplate.exchange("http://specialroutesservice/v1/route/abtesting/{serviceName}",
                     HttpMethod.GET, null, AbTestingRoute::class.java, serviceName)
@@ -127,7 +122,7 @@ class SpecialRoutesFilter : ZuulFilter() {
     private fun forward(httpclient: HttpClient?, verb: String, uri: String,
                         request: HttpServletRequest, headers: MultiValueMap<String, String>,
                         params: MultiValueMap<String, String>, requestEntity: InputStream?): HttpResponse {
-        val info = this.helper.debug(verb, uri, headers, params, requestEntity)
+//        val info = this.helper.debug(verb, uri, headers, params, requestEntity)
         val host = URL(uri)
         val httpHost = getHttpHost(host)
         val httpRequest: HttpRequest
@@ -196,7 +191,7 @@ class SpecialRoutesFilter : ZuulFilter() {
         this.helper.addIgnoredHeaders()
 //        var httpClient: CloseableHttpClient? = null
 //        var response: HttpResponse? = null
-        try{
+        try {
             HttpClients.createDefault().use { httpClient ->
                 val response: HttpResponse = forward(httpClient, verb, route, request, headers, params, requestEntity)
                 setResponse(response)

@@ -43,3 +43,6 @@ security:
   oauth2:
     resource:
       userInfoUri: http://localhost:8901/user
+
+organization:
+  prefix: ""

@@ -12,12 +12,12 @@ import org.springframework.http.client.ClientHttpResponse
  * This is done to ensure that you can establish a linkage between service calls.
  * This is used in RestTemplateConfig
  */
-class UserContextInterceptor: ClientHttpRequestInterceptor {
+class UserContextInterceptor : ClientHttpRequestInterceptor {
 
     private val logger = LoggerFactory.getLogger(UserContextInterceptor::class.java)
 
     override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
-        with(request.headers){
+        with(request.headers) {
             this.add(UserContextType.CORRELATION_ID.key, UserContextHolder.getContext().correlationId)
             this.add(UserContextType.AUTH_TOKEN.key, UserContextHolder.getContext().authToken)
         }
