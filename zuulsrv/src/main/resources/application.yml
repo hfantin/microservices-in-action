@@ -23,7 +23,7 @@ management:
       exposure:
         include: "*"
       # to change actuators base path:
-      base-path: /tosco
+#      base-path: /tosco
   # to show details:
   endpoint:
     health:

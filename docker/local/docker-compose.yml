@@ -136,7 +136,7 @@ services:
       REDIS_PORT:          6379
       ENCRYPT_KEY:       "IMSYMMETRIC"
       AUTHSERVER_URI:   "http://authenticationservice:8901/user"
-      PREFIX: "old:"
+      PREFIX: "OLD:"
     depends_on:
       - rabbitmq
       - configserver
@@ -144,10 +144,10 @@ services:
   organizationservicenew:
     image: com.github.hfantin/organization-service:latest
     ports:
-      - 9002:9002
+      - 8087:8087
     environment:
       PROFILE: "default"
-      SERVER_PORT: 9002
+      SERVER_PORT: 8087
       CONFIGSERVER_URI: "http://configserver:8888"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT:   8761
@@ -157,18 +157,18 @@ services:
       REDIS_PORT:          6379
       ENCRYPT_KEY:       "IMSYMMETRIC"
       AUTHSERVER_URI:   "http://authenticationservice:8901/user"
-      PREFIX: "thenewest:"
+      PREFIX: "NEW:"
     depends_on:
       - rabbitmq
       - configserver
 
-#  organizationservicenew:
+#  organizationservicenew2:
 #    image: com.github.hfantin/organization-new:latest
 #    ports:
-#      - 9002:9002
+#      - 8088:8088
 #    environment:
 #      PROFILE: "default"
-#      SERVER_PORT: "9002"
+#      SERVER_PORT: "8088"
 #      CONFIGSERVER_URI: "http://configserver:8888"
 #      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
 #      EUREKASERVER_PORT:   "8761"

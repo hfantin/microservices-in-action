@@ -17,9 +17,8 @@ public class SpecialRoutesServiceController {
     @Autowired
     AbTestingRouteService routeService;
 
-    @RequestMapping(value="abtesting/{serviceName}",method = RequestMethod.GET)
+    @RequestMapping(value="/abtesting/{serviceName}",method = RequestMethod.GET)
     public AbTestingRoute abstestings(@PathVariable("serviceName") String serviceName) {
-
         return routeService.getRoute( serviceName);
     }
 
