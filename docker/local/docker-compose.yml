@@ -32,7 +32,11 @@ services:
 #      - 9092
 #      - 2181
 
-
+  logspout:
+    image: gliderlabs/logspout:latest
+    command: syslog://logs3.papertrailapp.com:19373
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
   eurekaserver:
     image: com.github.hfantin/eurekasrv:latest
     ports:

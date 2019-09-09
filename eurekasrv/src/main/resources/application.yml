@@ -1,4 +1,7 @@
-#Default port is 8761
+spring:
+  main:
+    banner-mode: off
+
 server:
   port: 8761
 

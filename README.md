@@ -150,3 +150,10 @@ com.github.hfantin.authenticationservice.ApplicationTests > contextLoads FAILED
 
 
 ### Kafka: 
+
+
+
+
+### papertrail:
+
+logs3.papertrailapp.com:19373
