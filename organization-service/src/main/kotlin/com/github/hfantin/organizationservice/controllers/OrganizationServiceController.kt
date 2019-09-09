@@ -19,7 +19,7 @@ class OrganizationServiceController {
     private lateinit var prefix: String
 
     @GetMapping("/{organizationId}")
-    fun getOrganization(@PathVariable("organizationId") organizationId: String) =  organizationService.get(organizationId).get()?.apply {
+    fun getOrganization(@PathVariable("organizationId") organizationId: String) =  organizationService.get(organizationId).get().apply {
         contactName = "$prefix$contactName"
     }
 

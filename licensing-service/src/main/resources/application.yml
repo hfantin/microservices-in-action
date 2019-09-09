@@ -3,8 +3,6 @@ server:
   port: 9000
 
 spring:
-  main:
-    banner-mode: off
   cloud:
     stream:
       bindings:

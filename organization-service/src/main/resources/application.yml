@@ -2,8 +2,6 @@ server:
   port: 9001
 
 spring:
-  main:
-    banner-mode: off
   cloud:
     stream:
       bindings:
