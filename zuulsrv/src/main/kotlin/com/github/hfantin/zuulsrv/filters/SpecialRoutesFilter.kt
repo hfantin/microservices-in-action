@@ -67,7 +67,7 @@ class SpecialRoutesFilter : ZuulFilter() {
             throw ex
         }
 
-        return restExchange?.body
+        return restExchange.body
     }
 
     private fun buildRouteString(oldEndpoint: String, newEndpoint: String, serviceName: String): String {

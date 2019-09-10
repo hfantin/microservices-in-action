@@ -94,9 +94,11 @@ security:
 3. Zone your services into a public API and private API .
 4. Limit the attack surface of your microservices by locking down unneeded network ports.
 
-EDA:   
+logs
+1. [return the correlation id](http://cloud.spring.io/spring-cloud-static/spring-cloud-sleuth/1.0.12.RELEASE]
 
-last page 236 8.2 Introducing Spring Cloud Stream
+
+
 
 #### Links
 1. alternatives to json:    
@@ -115,7 +117,8 @@ last page 236 8.2 Introducing Spring Cloud Stream
 [cap5](https://github.com/carnellj/spmia-chapter5)   
 [cap6](https://github.com/carnellj/spmia-chapter6)   
 [cap7](https://github.com/carnellj/spmia-chapter7)   
-[cap8](https://github.com/carnellj/spmia-chapter8)   
+[cap8](https://github.com/carnellj/spmia-chapter8)
+[cap9](https://github.com/carnellj/spmia-chapter9)      
 [config server](https://github.com/carnellj/config-repo)    
 
 8. [kafka](https://www.cloudera.com/documentation/kafka/latest/topics/kafka_command_line.html)    

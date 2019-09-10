@@ -1,6 +1,7 @@
 package com.github.hfantin.zuulsrv.filters
 
 
+import brave.Tracer
 import com.netflix.zuul.ZuulFilter
 import com.netflix.zuul.context.RequestContext
 import org.slf4j.LoggerFactory
@@ -13,8 +14,11 @@ import org.springframework.stereotype.Component
 @Component
 class ResponseFilter : ZuulFilter() {
 
+//    @Autowired
+//    private lateinit var filterUtils: FilterUtils
+
     @Autowired
-    private lateinit var filterUtils: FilterUtils
+    private lateinit var tracer: Tracer
 
     override fun filterType() = FilterUtils.POST_FILTER_TYPE
 
@@ -22,9 +26,11 @@ class ResponseFilter : ZuulFilter() {
 
     override fun shouldFilter() = SHOULD_FILTER
 
+
     override fun run() = with(RequestContext.getCurrentContext()) {
-        logger.info("Adding the correlation id to the outbound headers. {}", filterUtils.getCorrelationId())
-        response.addHeader(FilterUtils.CORRELATION_ID, filterUtils.getCorrelationId())
+        val correlationId = tracer.currentSpan().context().traceIdString()
+        logger.info("Adding the correlation id to the outbound headers. {}", correlationId)
+        response.addHeader(FilterUtils.CORRELATION_ID, correlationId)
         logger.info("Completing outgoing request for {}.", request.requestURI)
     }
 
