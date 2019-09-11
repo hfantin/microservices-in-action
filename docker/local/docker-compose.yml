@@ -86,22 +86,30 @@ services:
     depends_on:
       - configserver
 
-#  zuulserver:
-#    image: com.github.hfantin/zuulsrv:latest
-#    ports:
-#      - 5555:5555
-#    environment:
-#      PROFILE: "default"
-#      SERVER_PORT: "5555"
-#      CONFIGSERVER_URI: "http://configserver:8888"
-#      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-#      EUREKASERVER_PORT:        "8761"
-#      DATABASESERVER_PORT:      "5432"
-#      CONFIGSERVER_PORT:        "8888"
-#      ORGSERVERNEW_PORT:        "9002"
-#      ENCRYPT_KEY:       "IMSYMMETRIC"
-#    depends_on:
-#      - configserver
+  zuulserver:
+    image: com.github.hfantin/zuulsrv:latest
+    ports:
+      - 5555:5555
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "5555"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:        "8761"
+      DATABASESERVER_PORT:      "5432"
+      CONFIGSERVER_PORT:        "8888"
+      ORGSERVERNEW_PORT:        "9002"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    depends_on:
+      - configserver
+
+  zipkin:
+    image: com.github.hfantin/zipkin:latest
+    ports:
+      - 9411:9411
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "9411"
 
   licensingservice:
     image: com.github.hfantin/licensing-service:latest
