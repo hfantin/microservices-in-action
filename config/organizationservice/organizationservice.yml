@@ -19,7 +19,7 @@ spring:
         password: '{cipher}9ae2732c470a2b0e2989bcc444bab8ba6891f7871470533cbb1a6516524d4f98'
         port: 5672
     zipkin:
-        baseUrl: http://zipkin:9411
+        baseUrl: http://zipkinsrv:9411
 redis:
     server: redis
     port: 6379

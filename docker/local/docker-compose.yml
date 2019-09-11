@@ -104,7 +104,7 @@ services:
       - configserver
 
   zipkin:
-    image: com.github.hfantin/zipkin:latest
+    image: com.github.hfantin/zipkinsrv:latest
     ports:
       - 9411:9411
     environment:

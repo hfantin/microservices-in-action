@@ -24,6 +24,6 @@ spring:
     cache:
         type: redis
     zipkin:
-        baseUrl: http://zipkin:9411
+        baseUrl: http://zipkinsrv:9411
 signing:
     key: "345345fsdfsf5345"
