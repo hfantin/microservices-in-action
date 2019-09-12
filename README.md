@@ -131,6 +131,11 @@ logs
 
 
 ### TODOS: 
+- endpoints not working:
+  GET   http://localhost:9000/v1/organizations/1/licenses/1/rest
+  GET   http://localhost:9000/v1/organizations/1/licenses/1/feign
+  POST  http://localhost:9000/v1/organizations/1/licenses/2
+  GET   http://localhost:8910/v1/route/abtesting/licensingservice
 - default appliction test failure - https://spring.io/tools:   
 ```
 com.github.hfantin.authenticationservice.ApplicationTests > contextLoads FAILED

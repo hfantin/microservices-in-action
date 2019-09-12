@@ -88,26 +88,26 @@ services:
 
 #
 
-#  licensingservice:
-#    image: com.github.hfantin/licensing-service:latest
-#    ports:
-#      - 9000:9000
-#    environment:
-#      PROFILE: "default"
-#      SERVER_PORT: "9000"
-#      CONFIGSERVER_URI: "http://configserver:8888"
-#      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-#      EUREKASERVER_PORT:   "8761"
-#      CONFIGSERVER_PORT:   "8888"
-#      DATABASESERVER_PORT: "5432"
-#      ZUULSERVER_PORT:     "5555"
-#      REDIS_PORT:          "6379"
-#      ENCRYPT_KEY:       "IMSYMMETRIC"
-#      AUTHSERVER_URI:   "http://authenticationservice:8901/user"
-#    restart: on-failure
-#    depends_on:
-#      - rabbitmq
-#      - configserver
+  licensingservice:
+    image: com.github.hfantin/licensing-service:latest
+    ports:
+      - 9000:9000
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "9000"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_PORT:   "8888"
+      DATABASESERVER_PORT: "5432"
+      ZUULSERVER_PORT:     "5555"
+      REDIS_PORT:          "6379"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+      AUTHSERVER_URI:   "http://authenticationservice:8901/user"
+    restart: on-failure
+    depends_on:
+      - rabbitmq
+      - configserver
 
   organizationservice:
     image: com.github.hfantin/organization-service:latest
