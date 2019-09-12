@@ -23,9 +23,9 @@ spring:
     port: 6379
   cache:
     type: redis
-  sleuth:
-    sampler:
-      percentage: 1 # values between 0 and 1 - eg.: .5 means 50%
+#  sleuth:
+#    sampler:
+#      percentage: 1 # values between 0 and 1 - eg.: .5 means 50%
   zipkin:
     baseUrl: http://localhost:9411
 signing:

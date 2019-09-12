@@ -18,9 +18,9 @@ spring:
     username: admin
     password: '{cipher}9ae2732c470a2b0e2989bcc444bab8ba6891f7871470533cbb1a6516524d4f98'
     port: 5672
-  sleuth:
-    sampler:
-      percentage: 1 # values between 0 and 1 - eg.: .5 means 50%
+#  sleuth:
+#    sampler:
+#      percentage: 1 # values between 0 and 1 - eg.: .5 means 50%
   zipkin:
     baseUrl: http://localhost:9411
 redis:

@@ -9,3 +9,11 @@ Data stores are
 
 to configure a zipkin data store:
 https://github.com/openzipkin/zipkin/tree/master/zipkin-server
+
+
+# TODO 
+-  AlwaysSampler on Application.kt not working
+```
+@Bean
+fun  defaultSampler() : Sampler  = AlwaysSampler()
+```

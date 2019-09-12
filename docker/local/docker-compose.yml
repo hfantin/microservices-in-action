@@ -23,14 +23,6 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=123456
-#  kafkaserver:
-#    image: spotify/kafka
-#    ports:
-#      - 2181:2181
-#      - 9092:9092
-#    expose:
-#      - 9092
-#      - 2181
 
   logspout:
     image: gliderlabs/logspout:latest
@@ -70,22 +62,6 @@ services:
     depends_on:
       - configserver
 
-  specialrouteservice:
-    image: com.github.hfantin/specialroute-service:latest
-    ports:
-      - 8910:8910
-    environment:
-      PROFILE: "default"
-      SERVER_PORT: "8910"
-      CONFIGSERVER_URI: "http://configserver:8888"
-      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-      EUREKASERVER_PORT:   "8761"
-      CONFIGSERVER_PORT:   "8888"
-      DATABASESERVER_PORT: "5432"
-      ENCRYPT_KEY:       "IMSYMMETRIC"
-    depends_on:
-      - configserver
-
   zuulserver:
     image: com.github.hfantin/zuulsrv:latest
     ports:
@@ -103,39 +79,35 @@ services:
     depends_on:
       - configserver
 
-#  zipkin:
-#    image: com.github.hfantin/zipkinsrv:latest
-#    ports:
-#      - 9411:9411
-#    environment:
-#      PROFILE: "default"
-#      SERVER_PORT: "9411"
-
   zipkinsrv:
+    hostname: zipkinsrv
+    container_name: zipkinsrv
     image: openzipkin/zipkin
     ports:
       - 9411:9411
 
-  licensingservice:
-    image: com.github.hfantin/licensing-service:latest
-    ports:
-      - 9000:9000
-    environment:
-      PROFILE: "default"
-      SERVER_PORT: "9000"
-      CONFIGSERVER_URI: "http://configserver:8888"
-      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-      EUREKASERVER_PORT:   "8761"
-      CONFIGSERVER_PORT:   "8888"
-      DATABASESERVER_PORT: "5432"
-      ZUULSERVER_PORT:     "5555"
-      REDIS_PORT:          "6379"
-      ENCRYPT_KEY:       "IMSYMMETRIC"
-      AUTHSERVER_URI:   "http://authenticationservice:8901/user"
-    restart: on-failure
-    depends_on:
-      - rabbitmq
-      - configserver
+#
+
+#  licensingservice:
+#    image: com.github.hfantin/licensing-service:latest
+#    ports:
+#      - 9000:9000
+#    environment:
+#      PROFILE: "default"
+#      SERVER_PORT: "9000"
+#      CONFIGSERVER_URI: "http://configserver:8888"
+#      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+#      EUREKASERVER_PORT:   "8761"
+#      CONFIGSERVER_PORT:   "8888"
+#      DATABASESERVER_PORT: "5432"
+#      ZUULSERVER_PORT:     "5555"
+#      REDIS_PORT:          "6379"
+#      ENCRYPT_KEY:       "IMSYMMETRIC"
+#      AUTHSERVER_URI:   "http://authenticationservice:8901/user"
+#    restart: on-failure
+#    depends_on:
+#      - rabbitmq
+#      - configserver
 
   organizationservice:
     image: com.github.hfantin/organization-service:latest
@@ -179,19 +151,19 @@ services:
       - rabbitmq
       - configserver
 
-#  organizationservicenew2:
-#    image: com.github.hfantin/organization-new:latest
-#    ports:
-#      - 8088:8088
-#    environment:
-#      PROFILE: "default"
-#      SERVER_PORT: "8088"
-#      CONFIGSERVER_URI: "http://configserver:8888"
-#      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-#      EUREKASERVER_PORT:   "8761"
-#      CONFIGSERVER_PORT:   "8888"
-#      DATABASESERVER_PORT: "5432"
-#      ENCRYPT_KEY:       "IMSYMMETRIC"
-#      AUTHSERVER_URI:   "http://authenticationservice:8901/user"
-#    depends_on:
-#      - configserver
+  specialrouteservice:
+    image: com.github.hfantin/specialroute-service:latest
+    ports:
+      - 8910:8910
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8910"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_PORT:   "8888"
+      DATABASESERVER_PORT: "5432"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    depends_on:
+      - configserver
+
