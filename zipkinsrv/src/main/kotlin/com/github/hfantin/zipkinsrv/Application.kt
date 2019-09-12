@@ -2,7 +2,7 @@ package com.github.hfantin.zipkinsrv
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import zipkin2.server.internal.EnableZipkinServer
+import zipkin.server.EnableZipkinServer
 
 @SpringBootApplication
 @EnableZipkinServer

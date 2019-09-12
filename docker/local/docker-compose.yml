@@ -103,13 +103,18 @@ services:
     depends_on:
       - configserver
 
-  zipkin:
-    image: com.github.hfantin/zipkinsrv:latest
+#  zipkin:
+#    image: com.github.hfantin/zipkinsrv:latest
+#    ports:
+#      - 9411:9411
+#    environment:
+#      PROFILE: "default"
+#      SERVER_PORT: "9411"
+
+  zipkinsrv:
+    image: openzipkin/zipkin
     ports:
       - 9411:9411
-    environment:
-      PROFILE: "default"
-      SERVER_PORT: "9411"
 
   licensingservice:
     image: com.github.hfantin/licensing-service:latest

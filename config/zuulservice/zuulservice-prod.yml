@@ -1,6 +1,9 @@
 spring:
   zipkin:
-    baseUrl: http://zipkin:9411
+    baseUrl: http://zipkinsrv:9411
+  sleuth:
+    sampler:
+      percentage: 1 # values between 0 and 1 - eg.: .5 means 50%
 zuul:
   ignored-services: '*'
   prefix: /api
@@ -16,7 +19,7 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 2500
-# specific for licensing service
+    # specific for licensing service
     licensingservice:
       execution:
         isolation:

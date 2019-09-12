@@ -1,6 +1,9 @@
 spring:
   zipkin:
     baseUrl: http://zipkinsrv:9411
+  sleuth:
+    sampler:
+      percentage: 1 # values between 0 and 1 - eg.: .5 means 50%
 zuul:
   ignored-services: '*'
   prefix: /api
