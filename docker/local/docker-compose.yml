@@ -61,7 +61,6 @@ services:
       ENCRYPT_KEY:       "IMSYMMETRIC"
     depends_on:
       - configserver
-
   zuulserver:
     image: com.github.hfantin/zuulsrv:latest
     ports:

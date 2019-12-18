@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-alpine
+FROM adoptopenjdk/openjdk13-openj9:alpine
 RUN  apk update && apk upgrade && apk add netcat-openbsd
 ARG JAR_FILE
 COPY ${JAR_FILE} app.jar

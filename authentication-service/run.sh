@@ -22,8 +22,14 @@ echo "*******  Configuration Server has started"
 echo "********************************************************"
 echo "Starting Organization Service  $CONFIGSERVER_URI"
 echo "********************************************************"
-java -Djava.security.egd=file:/dev/./urandom -Dserver.port=$SERVER_PORT   \
-     -Deureka.client.serviceUrl.defaultZone=$EUREKASERVER_URI             \
-     -Dspring.cloud.config.uri=$CONFIGSERVER_URI                          \
-     -Dspring.profiles.active=$PROFILE                                   \
+
+java -Djava.security.egd=file:/dev/./urandom   \
+     -Xms256m        \
+     -Xmx1G          \
+     -Xshareclasses  \
+     -Xquickstart    \
+     -Dserver.port=$SERVER_PORT  \
+     -Deureka.client.serviceUrl.defaultZone=$EUREKASERVER_URI \
+     -Dspring.cloud.config.uri=$CONFIGSERVER_URI              \
+     -Dspring.profiles.active=$PROFILE                        \
      -jar app.jar

@@ -1,3 +1,7 @@
 #!/bin/sh
-java  -Dspring.profiles.active=$PROFILE                                   \
+java -Xms256m        \
+     -Xmx1G          \
+     -Xshareclasses  \
+     -Xquickstart    \
+     -Dspring.profiles.active=$PROFILE                                   \
      -jar app.jar
